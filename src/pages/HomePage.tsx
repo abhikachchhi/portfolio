@@ -1,18 +1,22 @@
 import { Chip } from '../components/Chip'
 import { WorkEntry } from '../components/WorkEntry'
+import { useInteractiveHero } from '../components/useInteractiveHero'
 import { projects } from '../data/projects'
 import { Link } from '../routing'
 
 export function HomePage() {
+  const { heroRef, pulse, clearPulse, interactionProps } = useInteractiveHero()
+
   return (
     <>
-      <section className="home-hero page-frame" aria-labelledby="home-title">
-        <div className="home-hero__eyebrow"><Chip variant="inset-h">Available for select work</Chip><span>Edmonton, Canada</span></div>
+      <section ref={heroRef} className="home-hero page-frame" aria-labelledby="home-title" {...interactionProps}>
+        <span className="home-hero__liquid-field" aria-hidden="true"><span className="home-hero__liquid-lens" />{pulse ? <span className="home-hero__pulse" style={{ left: pulse.x, top: pulse.y }} onAnimationEnd={clearPulse} /> : null}</span>
+        <div className="home-hero__eyebrow"><Chip className="hero-glass-reactive" variant="inset-h" data-hero-glass>Available for select work</Chip><span>Edmonton, Canada</span></div>
         <div className="home-hero__copy">
-          <h1 id="home-title"><span>Abhishek</span><span>Kachchhi</span></h1>
-          <div className="home-hero__intro"><p>Creative developer shaping tactile interfaces and interactive systems.</p><span>Design-led development with a focus on motion, material, and emerging web experiences.</span></div>
+          <div className="home-hero__title-stage"><h1 id="home-title"><span>Abhishek</span><span>Kachchhi</span></h1></div>
+          <div className="home-hero__intro-stage"><div className="home-hero__intro"><p>Creative developer shaping tactile interfaces and interactive systems.</p><span>Design-led development with a focus on motion, material, and emerging web experiences.</span></div></div>
         </div>
-        <div className="home-hero__actions"><Link className="site-button site-button--primary" to="/work">Explore work <span aria-hidden="true">↗</span></Link><Link className="site-button site-button--secondary" to="/about">About me</Link></div>
+        <div className="home-hero__actions"><Link className="site-button site-button--primary" to="/work">Explore work <span aria-hidden="true">↗</span></Link><Link className="site-button site-button--secondary hero-glass-reactive" data-hero-glass to="/about">About me</Link></div>
         <span className="home-hero__marker" aria-hidden="true">Scroll / 01</span>
       </section>
 
