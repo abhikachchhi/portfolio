@@ -1,0 +1,46 @@
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  min-width: 320px;
+  background: var(--color-background);
+  scroll-behavior: smooth;
+}
+
+body {
+  --lens-backdrop:
+    linear-gradient(138deg, transparent 0 38%, rgba(139, 124, 255, 0.035) 38% 51%, transparent 51%),
+    linear-gradient(42deg, transparent 0 66%, rgba(100, 224, 255, 0.025) 66% 78%, transparent 78%),
+    repeating-linear-gradient(90deg, rgba(245, 246, 248, 0.012) 0 1px, transparent 1px 36px),
+    radial-gradient(circle at 82% 8%, rgba(139, 124, 255, 0.075), transparent 28rem),
+    radial-gradient(circle at 6% 48%, rgba(100, 224, 255, 0.035), transparent 24rem);
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  overflow-x: hidden;
+  background: var(--lens-backdrop), var(--color-background);
+  color: var(--color-text);
+  font-family: var(--font-ui);
+  font-size: var(--text-body);
+  line-height: 1.55;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+button, input { font: inherit; }
+button, a { -webkit-tap-highlight-color: transparent; }
+a { color: inherit; }
+button { border: 0; }
+::selection { background: rgba(139, 124, 255, 0.3); color: var(--color-text); }
+:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 3px; }
+#root { min-height: 100vh; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}

@@ -1,0 +1,25 @@
+@font-face {
+  font-family: 'Practa';
+  src: url('/fonts/practa/Practa.otf') format('opentype');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Practa Outline';
+  src: url('/fonts/practa/Practa-Outline.otf') format('opentype');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Dune Rise';
+  src:
+    url('/fonts/dune-rise/Dune_Rise.otf') format('opentype'),
+    url('/fonts/dune-rise/Dune_Rise.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}

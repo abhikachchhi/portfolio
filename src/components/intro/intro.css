@@ -1,0 +1,93 @@
+@property --intro-reveal {
+  syntax: '<percentage>';
+  inherits: true;
+  initial-value: 0%;
+}
+
+.site-shell--intro {
+  --drop-y: 0svh;
+  --drop-opacity: 0;
+  --drop-scale-x: 0.45;
+  --drop-scale-y: 0.45;
+  --surface-opacity: 0;
+  --surface-scale: 0.35;
+  --impact-opacity: 0;
+  --impact-scale: 0.2;
+  --ripple-one-scale: 0.15;
+  --ripple-one-opacity: 0;
+  --ripple-two-scale: 0.15;
+  --ripple-two-opacity: 0;
+  --ripple-three-scale: 0.15;
+  --ripple-three-opacity: 0;
+  --intro-reveal: 0%;
+  --title-opacity: 0;
+  --title-blur: 9px;
+  --title-scale: 0.985;
+  --nav-opacity: 0;
+  --nav-blur: 4px;
+  --nav-y: -0.7rem;
+  --nav-scale: 0.985;
+  --eyebrow-opacity: 0;
+  --eyebrow-blur: 2px;
+  --eyebrow-y: 0.55rem;
+  --copy-opacity: 0;
+  --copy-blur: 2px;
+  --copy-y: 0.75rem;
+  --actions-opacity: 0;
+  --actions-blur: 2px;
+  --actions-y: 0.75rem;
+  --skip-opacity: 0;
+}
+
+.intro-experience {
+  --impact-y: 52%;
+  position: fixed;
+  z-index: 100;
+  inset: 0;
+  overflow: hidden;
+  color: var(--color-text);
+}
+
+.intro-experience__stage {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  overflow: hidden;
+  background: radial-gradient(circle at 50% var(--impact-y), rgba(245, 246, 248, 0.025), transparent 24%), linear-gradient(180deg, #09090c, var(--color-background));
+  -webkit-mask-image: radial-gradient(circle at 50% var(--impact-y), transparent 0 var(--intro-reveal), rgba(0, 0, 0, 0.16) calc(var(--intro-reveal) + 2.5%), rgba(0, 0, 0, 0.56) calc(var(--intro-reveal) + 7%), #000 calc(var(--intro-reveal) + 12%));
+  mask-image: radial-gradient(circle at 50% var(--impact-y), transparent 0 var(--intro-reveal), rgba(0, 0, 0, 0.16) calc(var(--intro-reveal) + 2.5%), rgba(0, 0, 0, 0.56) calc(var(--intro-reveal) + 7%), #000 calc(var(--intro-reveal) + 12%));
+  will-change: mask-image;
+}
+
+.intro-experience__glint { position: absolute; top: calc(var(--impact-y) - 1px); left: 50%; width: min(42rem, 62vw); height: 1px; background: linear-gradient(90deg, transparent, rgba(245, 246, 248, 0.12), transparent); opacity: var(--surface-opacity); transform: translateX(-50%) scaleX(var(--surface-scale)); }
+.intro-experience__surface { position: absolute; top: var(--impact-y); left: 50%; width: min(66rem, 78vw); height: 1px; background: linear-gradient(90deg, transparent, rgba(245, 246, 248, 0.07) 22%, rgba(245, 246, 248, 0.14) 50%, rgba(245, 246, 248, 0.07) 78%, transparent); opacity: var(--surface-opacity); transform: translateX(-50%) scaleX(var(--surface-scale)); }
+
+.intro-experience__drop-path { position: absolute; z-index: 2; top: 16%; left: 50%; width: 1.15rem; height: 1.35rem; transform: translate(-50%, var(--drop-y)); will-change: transform; }
+.intro-experience__droplet { position: absolute; inset: 0; border: 1px solid rgba(255, 255, 255, 0.32); border-radius: 52% 48% 58% 42% / 42% 45% 55% 58%; background: radial-gradient(circle at 34% 25%, rgba(255, 255, 255, 0.62) 0 5%, rgba(255, 255, 255, 0.11) 11%, rgba(17, 19, 23, 0.32) 46%, rgba(100, 224, 255, 0.055) 70%, rgba(255, 255, 255, 0.13)); box-shadow: inset -2px -3px 5px rgba(0, 0, 0, 0.42), inset 2px 2px 3px rgba(255, 255, 255, 0.15), 0 5px 14px rgba(0, 0, 0, 0.34); opacity: var(--drop-opacity); transform: scale(var(--drop-scale-x), var(--drop-scale-y)); }
+
+.intro-experience__impact { position: absolute; z-index: 1; top: var(--impact-y); left: 50%; width: clamp(3rem, 7vmin, 6rem); aspect-ratio: 1; transform: translate(-50%, -50%); pointer-events: none; }
+.intro-experience__impact-core { position: absolute; inset: 35%; border-radius: 50%; background: rgba(245, 246, 248, 0.28); box-shadow: 0 0 1.2rem rgba(245, 246, 248, 0.15), 0 0 2.5rem rgba(100, 224, 255, 0.04); opacity: var(--impact-opacity); transform: scale(var(--impact-scale)); }
+.intro-experience__ripple { position: absolute; inset: 0; border: 1px solid rgba(245, 246, 248, 0.16); border-radius: 50%; box-shadow: inset 0 0 0.18rem rgba(255, 255, 255, 0.08), 0 0 0.22rem rgba(0, 0, 0, 0.44); will-change: transform, opacity; }
+.intro-experience__ripple--one { opacity: var(--ripple-one-opacity); transform: scale(var(--ripple-one-scale)); }
+.intro-experience__ripple--two { border-color: rgba(255, 255, 255, 0.1); opacity: var(--ripple-two-opacity); transform: scale(var(--ripple-two-scale)); }
+.intro-experience__ripple--three { border-color: rgba(139, 124, 255, 0.055); opacity: var(--ripple-three-opacity); transform: scale(var(--ripple-three-scale)); }
+
+.intro-experience__skip { position: absolute; z-index: 3; right: var(--page-gutter); bottom: clamp(1.25rem, 4vw, 3rem); min-width: 4.75rem; min-height: 3rem; display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2); border: 1px solid var(--nav-glass-border); border-radius: var(--radius-pill); background: rgba(17, 19, 23, 0.28); color: var(--color-text-muted); cursor: pointer; font-size: var(--text-meta); font-weight: 620; letter-spacing: 0.08em; text-transform: uppercase; opacity: var(--skip-opacity); backdrop-filter: blur(8px); }
+.intro-experience__skip:hover { color: var(--color-text); border-color: var(--color-border-strong); }
+
+.site-shell--intro .site-nav { opacity: var(--nav-opacity); filter: blur(var(--nav-blur)); transform: translateY(var(--nav-y)) scale(var(--nav-scale)); }
+.site-shell--intro .home-hero h1 { opacity: var(--title-opacity); filter: blur(var(--title-blur)); transform: scale(var(--title-scale)); }
+.site-shell--intro .home-hero__eyebrow { opacity: var(--eyebrow-opacity); filter: blur(var(--eyebrow-blur)); transform: translateY(var(--eyebrow-y)); }
+.site-shell--intro .home-hero__intro { opacity: var(--copy-opacity); filter: blur(var(--copy-blur)); transform: translateY(var(--copy-y)); }
+.site-shell--intro .home-hero__actions { opacity: var(--actions-opacity); filter: blur(var(--actions-blur)); transform: translateY(var(--actions-y)); }
+
+@media (max-width: 700px) {
+  .intro-experience { --impact-y: 48%; }
+  .intro-experience__glint { width: 72vw; }
+  .intro-experience__surface { width: 86vw; }
+  .intro-experience__drop-path { top: 13%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro-experience { display: none; }
+}
