@@ -52,6 +52,7 @@ export function SiteNav() {
   }, [isOpen])
 
   const closeMenu = () => setIsOpen(false)
+  const isActive = (to: string) => path === to || (to === '/work' && path.startsWith('/work/'))
 
   return (
     <header className="site-header">
@@ -60,7 +61,7 @@ export function SiteNav() {
           <span className="site-nav__monogram">AK</span><span className="site-nav__name">Abhishek Kachchhi</span>
         </Link>
         <div className="site-nav__links">
-          {links.map((link) => <Link className={path === link.to ? 'is-active' : ''} aria-current={path === link.to ? 'page' : undefined} to={link.to} key={link.to}>{link.label}</Link>)}
+          {links.map((link) => <Link className={isActive(link.to) ? 'is-active' : ''} aria-current={isActive(link.to) ? 'page' : undefined} to={link.to} key={link.to}>{link.label}</Link>)}
         </div>
         <a className="site-nav__contact" href="mailto:hello@abhishekkachchhi.dev">Let's talk <span aria-hidden="true">↗</span></a>
         <button ref={triggerRef} className="site-nav__menu-trigger" type="button" aria-expanded={isOpen} aria-controls="mobile-menu" aria-label={isOpen ? 'Close menu' : 'Open menu'} onClick={() => setIsOpen((open) => !open)}>
@@ -72,7 +73,7 @@ export function SiteNav() {
           <div ref={sheetRef} className="mobile-menu__sheet glass-chrome">
             <p>Navigate</p>
             <div className="mobile-menu__links">
-              {links.map((link, index) => <Link ref={index === 0 ? firstLinkRef : undefined} className={path === link.to ? 'is-active' : ''} aria-current={path === link.to ? 'page' : undefined} to={link.to} onClick={closeMenu} key={link.to}><span>0{index + 1}</span>{link.label}</Link>)}
+              {links.map((link, index) => <Link ref={index === 0 ? firstLinkRef : undefined} className={isActive(link.to) ? 'is-active' : ''} aria-current={isActive(link.to) ? 'page' : undefined} to={link.to} onClick={closeMenu} key={link.to}><span>0{index + 1}</span>{link.label}</Link>)}
             </div>
             <a className="mobile-menu__contact" href="mailto:hello@abhishekkachchhi.dev">Start a conversation <span aria-hidden="true">↗</span></a>
           </div>

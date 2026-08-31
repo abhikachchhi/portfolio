@@ -1,11 +1,12 @@
 import { Chip } from '../components/Chip'
 import { ProjectPreview } from '../components/ProjectPreview'
 import { useInteractiveHero } from '../components/useInteractiveHero'
-import { projects } from '../data/projects'
+import { getFeaturedProjects } from '../data/projects'
 import { Link } from '../routing'
 
 export function HomePage() {
   const { heroRef, pulse, clearPulse, interactionProps } = useInteractiveHero()
+  const featuredProjects = getFeaturedProjects()
 
   return (
     <>
@@ -22,7 +23,7 @@ export function HomePage() {
 
       <section className="site-section page-frame" aria-labelledby="selected-work-title">
         <header className="site-section__heading"><div><span>01</span><span>Selected work</span></div><h2 id="selected-work-title">A few things<br />made with intent.</h2></header>
-        <div className="project-showcase">{projects.slice(0, 3).map((project, index) => <ProjectPreview project={project} layout={index === 0 ? 'lead' : index === 1 ? 'reverse' : 'offset'} key={project.index} />)}</div>
+        <div className="project-showcase">{featuredProjects.slice(0, 3).map((project, index) => <ProjectPreview project={project} layout={index === 0 ? 'lead' : index === 1 ? 'reverse' : 'offset'} key={project.slug} />)}</div>
         <div className="section-link"><Link to="/work">View all work <span aria-hidden="true">→</span></Link></div>
       </section>
 

@@ -1,4 +1,4 @@
-import { WorkEntry } from '../components/WorkEntry'
+import { ProjectPreview } from '../components/ProjectPreview'
 import { projects } from '../data/projects'
 
 export function WorkPage() {
@@ -9,8 +9,7 @@ export function WorkPage() {
         <h1>Selected<br />work.</h1>
         <p>Interactive systems, expressive interfaces, and digital objects shaped through design and code.</p>
       </header>
-      <section className="work-list" aria-label="Project previews">{projects.map((project) => <WorkEntry project={project} key={project.index} />)}</section>
-      <p className="page-note">Detailed case studies and project pages will arrive in a later milestone.</p>
+      <section className="project-showcase work-showcase" aria-label="Project previews">{projects.map((project, index) => <ProjectPreview project={project} layout={index % 3 === 0 ? 'lead' : index % 3 === 1 ? 'reverse' : 'offset'} headingLevel={2} key={project.slug} />)}</section>
     </div>
   )
 }

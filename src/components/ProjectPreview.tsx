@@ -1,25 +1,18 @@
 import { useEffect, useRef, useState, type PointerEvent } from 'react'
-import type { Project, ProjectMedia } from '../data/projects'
+import type { Project } from '../data/projects'
+import { getProjectHref, getProjectPreviewMedia } from '../data/projects'
 import { Link } from '../routing'
 import { Chip } from './Chip'
+import { ProjectMedia } from './project/ProjectMedia'
 import './ProjectPreview.css'
 
 type ProjectPreviewProps = {
   project: Project
   layout: 'lead' | 'reverse' | 'offset'
+  headingLevel?: 2 | 3
 }
 
-function ProjectMediaSlot({ media }: { media: ProjectMedia }) {
-  if (media.kind === 'image') return <img src={media.src} alt={media.alt} loading="lazy" />
-
-  return (
-    <div className={`project-preview__placeholder project-preview__placeholder--${media.treatment}`} role="img" aria-label={`${media.label}; temporary project media placeholder`}>
-      <span /><span /><span />
-    </div>
-  )
-}
-
-export function ProjectPreview({ project, layout }: ProjectPreviewProps) {
+export function ProjectPreview({ project, layout, headingLevel = 3 }: ProjectPreviewProps) {
   const previewRef = useRef<HTMLElement>(null)
   const mediaRef = useRef<HTMLDivElement>(null)
   const mediaBoundsRef = useRef<DOMRect | null>(null)
@@ -27,6 +20,7 @@ export function ProjectPreview({ project, layout }: ProjectPreviewProps) {
   const pointerFrameRef = useRef<number | null>(null)
   const scrollFrameRef = useRef<number | null>(null)
   const [revealed, setRevealed] = useState(false)
+  const Heading = headingLevel === 2 ? 'h2' : 'h3'
 
   useEffect(() => {
     const preview = previewRef.current
@@ -119,18 +113,18 @@ export function ProjectPreview({ project, layout }: ProjectPreviewProps) {
 
   return (
     <article ref={previewRef} className={`project-preview project-preview--${layout}${revealed ? ' is-revealed' : ''}`}>
-      <Link className="project-preview__link" to={project.href} aria-label={`View ${project.title} in the work index`} onPointerEnter={onPointerEnter} onPointerMove={onPointerMove} onPointerLeave={onPointerLeave}>
+      <Link className="project-preview__link" to={getProjectHref(project)} aria-label={`View ${project.title} case study`} onPointerEnter={onPointerEnter} onPointerMove={onPointerMove} onPointerLeave={onPointerLeave}>
         <div ref={mediaRef} className="project-preview__media">
-          <ProjectMediaSlot media={project.media} />
+          <ProjectMedia media={getProjectPreviewMedia(project)} preview />
           <span className="project-preview__number" aria-hidden="true">{project.index}</span>
         </div>
 
         <div className="project-preview__body">
           <div className="project-preview__meta"><span>{project.category}</span><span>{project.year}</span></div>
-          <h3>{project.title}</h3>
+          <Heading className="project-preview__title">{project.title}</Heading>
           <p>{project.summary}</p>
           <div className="project-preview__footer">
-            <div className="chip-row" aria-label="Technologies">{project.tags.map((tag) => <Chip variant="inset-d" key={tag}>{tag}</Chip>)}</div>
+            {project.tags?.length ? <div className="chip-row" aria-label="Technologies">{project.tags.map((tag) => <Chip variant="inset-d" key={tag}>{tag}</Chip>)}</div> : <span />}
             <span className="project-preview__action">View project <span aria-hidden="true">↗</span></span>
           </div>
         </div>

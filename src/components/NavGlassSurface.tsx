@@ -30,6 +30,18 @@ export function NavGlassSurface({ children, className = '', contentKey, ...props
     clone.setAttribute('aria-hidden', 'true')
     clone.querySelectorAll<HTMLElement>('[id]').forEach((element) => element.removeAttribute('id'))
     clone.querySelectorAll<HTMLElement>('a, button, input').forEach((element) => element.setAttribute('tabindex', '-1'))
+    clone.querySelectorAll<HTMLImageElement>('img').forEach((image) => {
+      image.loading = 'lazy'
+      image.decoding = 'async'
+      image.fetchPriority = 'low'
+    })
+    clone.querySelectorAll<HTMLVideoElement>('video').forEach((video) => {
+      video.autoplay = false
+      video.controls = false
+      video.loop = false
+      video.muted = true
+      video.preload = 'none'
+    })
     refraction.replaceChildren(clone)
 
     let frame = 0
