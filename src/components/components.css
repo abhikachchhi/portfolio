@@ -129,7 +129,7 @@
   border-radius: var(--radius-pill);
   background: var(--nav-glass-bg);
   box-shadow: var(--nav-glass-shadow);
-  backdrop-filter: blur(var(--nav-glass-blur)) saturate(130%) brightness(1.06);
+  backdrop-filter: blur(var(--nav-glass-blur)) saturate(var(--nav-glass-saturation)) brightness(var(--nav-glass-brightness));
 }
 .nav-glass-surface::after {
   content: '';
@@ -148,22 +148,24 @@
   overflow: hidden;
   border-radius: inherit;
   pointer-events: none;
-  background: var(--color-background);
-  opacity: 1;
-  filter: blur(2px) saturate(1.16) brightness(1.04);
+  background: var(--nav-glass-lens-bg);
+  opacity: var(--nav-glass-lens-opacity);
 }
-.nav-glass-surface__dom-clone {
+.nav-glass-surface__edge-refraction {
   position: absolute;
-  max-width: none;
-  margin: 0;
+  z-index: 1;
+  inset: 0;
+  overflow: hidden;
+  border-radius: inherit;
   pointer-events: none;
-  will-change: transform;
+  opacity: var(--nav-glass-refraction-opacity);
+  filter: blur(2.4px) saturate(1.02) brightness(0.86);
+  -webkit-mask-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.78) 0 68%, rgba(0, 0, 0, 0.9) 86%, #000 100%);
+  mask-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.78) 0 68%, rgba(0, 0, 0, 0.9) 86%, #000 100%);
 }
-.nav-glass-surface__dom-clone * {
-  pointer-events: none !important;
-  user-select: none !important;
-}
-.nav-glass-surface > :not(.nav-glass-surface__lens-layer) {
+.nav-glass-surface__edge-clone { position: absolute; max-width: none; margin: 0; pointer-events: none; will-change: transform; }
+.nav-glass-surface__edge-clone * { pointer-events: none !important; user-select: none !important; }
+.nav-glass-surface > :not(.nav-glass-surface__lens-layer):not(.nav-glass-surface__edge-refraction) {
   position: relative;
   z-index: 2;
 }

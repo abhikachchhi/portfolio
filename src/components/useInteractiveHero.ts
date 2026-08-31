@@ -13,6 +13,8 @@ export function useInteractiveHero() {
   const lastFrameRef = useRef(0)
   const targetRef = useRef<MotionPoint>({ ...restingPoint })
   const currentRef = useRef<MotionPoint>({ ...restingPoint })
+  const heroBoundsRef = useRef<DOMRect | null>(null)
+  const pointerClientRef = useRef({ x: 0, y: 0, active: false })
   const finePointerRef = useRef(false)
   const reducedMotionRef = useRef(false)
   const activeGlassRef = useRef<HTMLElement | null>(null)
@@ -27,10 +29,47 @@ export function useInteractiveHero() {
     const updatePreferences = () => {
       finePointerRef.current = finePointer.matches
       reducedMotionRef.current = reducedMotion.matches
+      if (reducedMotion.matches || !finePointer.matches) {
+        pointerClientRef.current.active = false
+        hero.style.setProperty('--hero-lens-opacity', '0')
+      }
     }
 
     const updateScroll = () => {
       scrollFrameRef.current = null
+      const bounds = hero.getBoundingClientRect()
+      heroBoundsRef.current = bounds
+
+      const pointer = pointerClientRef.current
+      if (pointer.active && finePointerRef.current && !reducedMotionRef.current) {
+        const lensX = pointer.x - bounds.left
+        const lensY = pointer.y - bounds.top
+        const inside = lensX >= 0 && lensX <= bounds.width && lensY >= 0 && lensY <= bounds.height
+
+        if (inside) {
+          targetRef.current = {
+            x: (lensX / bounds.width - 0.5) * 2,
+            y: (lensY / bounds.height - 0.5) * 2,
+            lensX,
+            lensY,
+          }
+          hero.querySelector('.home-hero__liquid-lens')?.classList.remove('is-popping')
+          hero.style.setProperty('--hero-lens-opacity', '1')
+        } else {
+          targetRef.current = { ...restingPoint, lensX: currentRef.current.lensX, lensY: currentRef.current.lensY }
+          hero.style.setProperty('--hero-lens-opacity', '0')
+        }
+
+        const target = targetRef.current
+        currentRef.current = { ...target }
+        hero.style.setProperty('--hero-line-one-x', `${target.x * 8}px`)
+        hero.style.setProperty('--hero-line-one-y', `${target.y * 5}px`)
+        hero.style.setProperty('--hero-line-two-x', `${target.x * -5}px`)
+        hero.style.setProperty('--hero-line-two-y', `${target.y * -3}px`)
+        hero.style.setProperty('--hero-lens-x', `${target.lensX}px`)
+        hero.style.setProperty('--hero-lens-y', `${target.lensY}px`)
+      }
+
       if (reducedMotionRef.current) {
         hero.style.setProperty('--hero-scroll-title-y', '0px')
         hero.style.setProperty('--hero-scroll-copy-y', '0px')
@@ -38,7 +77,6 @@ export function useInteractiveHero() {
         return
       }
 
-      const bounds = hero.getBoundingClientRect()
       const progress = Math.min(1, Math.max(0, -bounds.top / Math.max(bounds.height * 0.78, 1)))
       const mobile = window.matchMedia('(max-width: 700px)').matches
       hero.style.setProperty('--hero-scroll-title-y', `${progress * (mobile ? 10 : 28)}px`)
@@ -57,6 +95,8 @@ export function useInteractiveHero() {
     reducedMotion.addEventListener('change', requestScrollUpdate)
     window.addEventListener('scroll', requestScrollUpdate, { passive: true })
     window.addEventListener('resize', requestScrollUpdate, { passive: true })
+    const resizeObserver = new ResizeObserver(requestScrollUpdate)
+    resizeObserver.observe(hero)
 
     return () => {
       finePointer.removeEventListener('change', updatePreferences)
@@ -64,6 +104,7 @@ export function useInteractiveHero() {
       reducedMotion.removeEventListener('change', requestScrollUpdate)
       window.removeEventListener('scroll', requestScrollUpdate)
       window.removeEventListener('resize', requestScrollUpdate)
+      resizeObserver.disconnect()
       if (frameRef.current !== null) cancelAnimationFrame(frameRef.current)
       if (scrollFrameRef.current !== null) cancelAnimationFrame(scrollFrameRef.current)
     }
@@ -106,7 +147,12 @@ export function useInteractiveHero() {
   }
 
   const resetGlass = () => {
-    activeGlassRef.current?.style.setProperty('--hero-glass-strength', '0')
+    const glass = activeGlassRef.current
+    if (glass) {
+      glass.classList.remove('is-popping')
+      void glass.getBoundingClientRect()
+      glass.classList.add('is-popping')
+    }
     activeGlassRef.current = null
   }
 
@@ -116,6 +162,7 @@ export function useInteractiveHero() {
     if (!target) return
 
     const bounds = target.getBoundingClientRect()
+    target.classList.remove('is-popping')
     target.style.setProperty('--hero-glass-x', `${event.clientX - bounds.left}px`)
     target.style.setProperty('--hero-glass-y', `${event.clientY - bounds.top}px`)
     target.style.setProperty('--hero-glass-strength', '1')
@@ -124,7 +171,9 @@ export function useInteractiveHero() {
 
   const onPointerMove = (event: ReactPointerEvent<HTMLElement>) => {
     if (reducedMotionRef.current || !finePointerRef.current) return
-    const bounds = event.currentTarget.getBoundingClientRect()
+    const bounds = heroBoundsRef.current ?? event.currentTarget.getBoundingClientRect()
+    heroBoundsRef.current = bounds
+    pointerClientRef.current = { x: event.clientX, y: event.clientY, active: true }
     event.currentTarget.querySelector('.home-hero__liquid-lens')?.classList.remove('is-popping')
     const lensX = event.clientX - bounds.left
     const lensY = event.clientY - bounds.top
@@ -144,6 +193,7 @@ export function useInteractiveHero() {
   }
 
   const onPointerLeave = () => {
+    pointerClientRef.current.active = false
     targetRef.current = { ...restingPoint, lensX: currentRef.current.lensX, lensY: currentRef.current.lensY }
     const hero = heroRef.current
     const lens = hero?.querySelector('.home-hero__liquid-lens')
@@ -158,7 +208,7 @@ export function useInteractiveHero() {
   }
 
   const onPointerDown = (event: ReactPointerEvent<HTMLElement>) => {
-    const bounds = event.currentTarget.getBoundingClientRect()
+    const bounds = heroBoundsRef.current ?? event.currentTarget.getBoundingClientRect()
     setPulse({ id: performance.now(), x: event.clientX - bounds.left, y: event.clientY - bounds.top })
   }
 
@@ -166,6 +216,6 @@ export function useInteractiveHero() {
     heroRef,
     pulse,
     clearPulse: () => setPulse(null),
-    interactionProps: { onPointerMove, onPointerLeave, onPointerDown },
+    interactionProps: { onPointerEnter: onPointerMove, onPointerMove, onPointerLeave, onPointerDown },
   }
 }

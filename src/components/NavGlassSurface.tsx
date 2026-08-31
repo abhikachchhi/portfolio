@@ -5,79 +5,62 @@ type NavGlassSurfaceProps = ComponentPropsWithoutRef<'nav'> & { contentKey?: str
 
 export function NavGlassSurface({ children, className = '', contentKey, ...props }: NavGlassSurfaceProps) {
   const surfaceRef = useRef<HTMLElement>(null)
-  const lensRef = useRef<HTMLDivElement>(null)
+  const refractionRef = useRef<HTMLDivElement>(null)
 
   useLayoutEffect(() => {
     const surface = surfaceRef.current
-    const lens = lensRef.current
+    const refraction = refractionRef.current
     const source = document.querySelector<HTMLElement>('main')
-
-    if (!surface || !lens || !source) return
+    if (!surface || !refraction || !source) return
 
     const clone = document.createElement('div')
     clone.replaceChildren(...Array.from(source.childNodes, (node) => node.cloneNode(true)))
-    clone.classList.add('nav-glass-surface__dom-clone')
+    clone.className = 'nav-glass-surface__edge-clone'
     clone.setAttribute('aria-hidden', 'true')
-
     clone.querySelectorAll<HTMLElement>('[id]').forEach((element) => element.removeAttribute('id'))
     clone.querySelectorAll<HTMLElement>('a, button, input').forEach((element) => element.setAttribute('tabindex', '-1'))
-    clone.querySelectorAll<HTMLElement>('.nav-glass-surface__lens-layer').forEach((element) => element.replaceChildren())
-    lens.replaceChildren(clone)
+    refraction.replaceChildren(clone)
 
     let frame = 0
-    let settleFrames = 0
-
-    const syncLens = () => {
+    const syncRefraction = () => {
+      frame = 0
       const surfaceRect = surface.getBoundingClientRect()
       const sourceRect = source.getBoundingClientRect()
-      const magnification = Number.parseFloat(
-        getComputedStyle(document.documentElement).getPropertyValue('--glass-magnification'),
-      ) || 1
-      const focusX = surfaceRect.left - sourceRect.left
-      const focusY = surfaceRect.top + surfaceRect.height / 2 - sourceRect.top
-      const edgeEntryCompensation = Math.max(0, magnification - 1) * surfaceRect.height / 2
+      const magnification = Number.parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--nav-glass-magnification')) || 1
+      const focusX = surfaceRect.left - sourceRect.left + surfaceRect.width / 2
+      const focusY = surfaceRect.top - sourceRect.top + surfaceRect.height / 2
 
       clone.style.width = `${sourceRect.width}px`
       clone.style.height = `${source.scrollHeight}px`
       clone.style.left = `${sourceRect.left - surfaceRect.left}px`
-      clone.style.top = `${sourceRect.top - surfaceRect.top - edgeEntryCompensation}px`
+      clone.style.top = `${sourceRect.top - surfaceRect.top}px`
       clone.style.transformOrigin = `${focusX}px ${focusY}px`
       clone.style.transform = `scale(${magnification})`
     }
-
-    const settleLens = () => {
-      syncLens()
-      settleFrames -= 1
-
-      if (settleFrames > 0) frame = requestAnimationFrame(settleLens)
-      else frame = 0
+    const requestSync = () => {
+      if (!frame) frame = requestAnimationFrame(syncRefraction)
     }
 
-    const handleScroll = () => {
-      syncLens()
-      settleFrames = 4
-      if (!frame) frame = requestAnimationFrame(settleLens)
-    }
-
-    const resizeObserver = new ResizeObserver(syncLens)
+    const resizeObserver = new ResizeObserver(requestSync)
     resizeObserver.observe(source)
     resizeObserver.observe(surface)
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    window.addEventListener('resize', syncLens)
-    syncLens()
+    window.addEventListener('scroll', requestSync, { passive: true })
+    window.addEventListener('resize', requestSync, { passive: true })
+    syncRefraction()
 
     return () => {
       cancelAnimationFrame(frame)
       resizeObserver.disconnect()
-      window.removeEventListener('scroll', handleScroll)
-      window.removeEventListener('resize', syncLens)
-      lens.replaceChildren()
+      window.removeEventListener('scroll', requestSync)
+      window.removeEventListener('resize', requestSync)
+      refraction.replaceChildren()
     }
   }, [contentKey])
 
   return (
     <nav ref={surfaceRef} className={`nav-glass-surface ${className}`.trim()} {...props}>
-      <div ref={lensRef} className="nav-glass-surface__lens-layer" aria-hidden="true" />
+      <div ref={refractionRef} className="nav-glass-surface__edge-refraction" aria-hidden="true" />
+      <div className="nav-glass-surface__lens-layer" aria-hidden="true" />
       {children}
     </nav>
   )
