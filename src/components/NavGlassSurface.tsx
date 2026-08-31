@@ -14,7 +14,18 @@ export function NavGlassSurface({ children, className = '', contentKey, ...props
     if (!surface || !refraction || !source) return
 
     const clone = document.createElement('div')
-    clone.replaceChildren(...Array.from(source.childNodes, (node) => node.cloneNode(true)))
+    const clonedNodes = Array.from(source.childNodes, (node) => node.cloneNode(true))
+    const cloneMap = new WeakMap<Node, Node>()
+    const mapClonedTree = (liveNode: Node, clonedNode: Node) => {
+      cloneMap.set(liveNode, clonedNode)
+      liveNode.childNodes.forEach((child, index) => {
+        const clonedChild = clonedNode.childNodes[index]
+        if (clonedChild) mapClonedTree(child, clonedChild)
+      })
+    }
+
+    source.childNodes.forEach((node, index) => mapClonedTree(node, clonedNodes[index]))
+    clone.replaceChildren(...clonedNodes)
     clone.className = 'nav-glass-surface__edge-clone'
     clone.setAttribute('aria-hidden', 'true')
     clone.querySelectorAll<HTMLElement>('[id]').forEach((element) => element.removeAttribute('id'))
@@ -42,8 +53,20 @@ export function NavGlassSurface({ children, className = '', contentKey, ...props
     }
 
     const resizeObserver = new ResizeObserver(requestSync)
+    const motionObserver = new MutationObserver((mutations) => {
+      mutations.forEach(({ target, attributeName }) => {
+        if (!attributeName) return
+        const clonedTarget = cloneMap.get(target)
+        if (!(target instanceof Element) || !(clonedTarget instanceof Element)) return
+        const value = target.getAttribute(attributeName)
+        if (value === null) clonedTarget.removeAttribute(attributeName)
+        else clonedTarget.setAttribute(attributeName, value)
+      })
+    })
+
     resizeObserver.observe(source)
     resizeObserver.observe(surface)
+    motionObserver.observe(source, { subtree: true, attributes: true, attributeFilter: ['style', 'class'] })
     window.addEventListener('scroll', requestSync, { passive: true })
     window.addEventListener('resize', requestSync, { passive: true })
     syncRefraction()
@@ -51,6 +74,7 @@ export function NavGlassSurface({ children, className = '', contentKey, ...props
     return () => {
       cancelAnimationFrame(frame)
       resizeObserver.disconnect()
+      motionObserver.disconnect()
       window.removeEventListener('scroll', requestSync)
       window.removeEventListener('resize', requestSync)
       refraction.replaceChildren()
