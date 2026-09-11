@@ -15,7 +15,7 @@ export function ProjectCard() {
         <h3>Project Name</h3>
         <p>A tactile digital experience exploring motion, material, and interaction.</p>
         <div className="project-card__footer">
-          <div className="chip-row" aria-label="Technologies"><Chip>React</Chip><Chip>WebGL</Chip><Chip>Interaction</Chip></div>
+          <div className="chip-row" aria-label="Technologies"><Chip>React</Chip><Chip>Motion</Chip><Chip>Interaction</Chip></div>
           <span className="project-card__arrow" aria-hidden="true">↗</span>
         </div>
       </div>

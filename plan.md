@@ -51,18 +51,15 @@ Likely routes:
 
 ---
 
-### 03 — First-launch animation
+### 03 — Homepage intro
 
-Build the RCA-inspired arrival experience.
+Build the liquid-glass droplet and ripple arrival experience.
 
-Something like:
-
-**black → Practa typography / object reveal → transformation → portfolio**
+**black stage → droplet impact → ripple reveal → portfolio**
 
 Requirements:
 
-- first-visit behaviour
-- replay mechanism for development
+- homepage reload behaviour
 - skip button
 - reduced-motion fallback
 - mobile-safe
@@ -74,24 +71,18 @@ We’ll design this more precisely when we reach it.
 
 ---
 
-### 04 — Interactive hero / 3D identity
+### 04 — Interactive 2D / liquid hero
 
 This is probably the most important design milestone.
 
-Create the central interactive object/game-like experience using something such as:
-
-- Three.js
-- React Three Fiber
-- Drei
+Enhance the existing typography-led hero with lightweight pointer, scroll, and liquid-glass interactions.
 
 It needs to work with:
 
 **mouse → desktop**  
 **touch → mobile**
 
-And have graceful fallback for weak devices.
-
-We should prototype several ideas rather than immediately committing to one.
+And provide a calm reduced-motion fallback.
 
 ---
 
@@ -106,7 +97,7 @@ contact/footer
 
 Minimal text.
 
-The 3D interaction stays the dominant visual.
+The typography and restrained liquid interaction stay dominant.
 
 ---
 
@@ -148,11 +139,10 @@ Later.
 
 This is where small:
 
-- WebGL experiments
 - games
 - visual experiments
 - weird interfaces
-- shaders
+- interface studies
 
 can live without being treated as flagship projects.
 
@@ -169,7 +159,6 @@ Only at the end:
 - performance
 - Lighthouse
 - loading strategy
-- WebGL optimization
 - accessibility
 - SEO
 - OpenGraph
@@ -187,18 +176,13 @@ I would start with:
 
 **React + TypeScript + Vite**
 
-and use:
+and use lightweight component CSS and native browser animation APIs.
 
-**Tailwind CSS** — layout/utility styling  
-**Motion** — normal UI/page animations  
-**React Three Fiber + Drei** — later for 3D  
-**Lucide** — only where icons are actually needed
-
-I don't want to install every animation/3D dependency in milestone 01 just because we might need it later. Keep the initial repo light.
+Keep dependencies minimal and add libraries only when the finished experience genuinely requires them.
 
 For typography:
 
-**Practa** — display/identity  
+**Dune Rise** — display/identity, with Practa as a fallback
 **Geist** — UI/body
 
 And our main palette remains approximately:

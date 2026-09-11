@@ -52,11 +52,11 @@ export function SiteNav() {
   }, [isOpen])
 
   const closeMenu = () => setIsOpen(false)
-  const isActive = (to: string) => path === to || (to === '/work' && path.startsWith('/work/'))
+  const isActive = (to: string) => to === '/' ? path === '/' : path === to || path.startsWith(`${to}/`)
 
   return (
     <header className="site-header">
-      <NavGlassSurface className="site-nav" contentKey={path} aria-label="Primary navigation">
+      <NavGlassSurface className="site-nav" aria-label="Primary navigation">
         <Link className="site-nav__brand" to="/" aria-label="Abhishek Kachchhi, home">
           <span className="site-nav__monogram">AK</span><span className="site-nav__name">Abhishek Kachchhi</span>
         </Link>

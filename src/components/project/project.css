@@ -91,8 +91,9 @@
 @media (max-width: 700px) {
   .project-detail { padding-top: 7.5rem; }
   .project-hero { grid-template-columns: 1fr; gap: var(--space-6); }
-  .project-hero__topline { align-items: flex-start; }
-  .project-hero__topline span:last-child { max-width: 13rem; text-align: right; }
+  .project-hero__topline { align-items: flex-start; flex-wrap: wrap; }
+  .project-hero__topline span { min-width: 0; overflow-wrap: anywhere; }
+  .project-hero__topline span:last-child { max-width: 13rem; margin-left: auto; text-align: right; }
   .project-hero h1 { margin: clamp(2.75rem, 15vw, 4.5rem) 0 var(--space-8); font-size: clamp(2.8rem, 14vw, 5.2rem); line-height: 0.84; }
   .project-hero__introduction > p { font-size: clamp(1.15rem, 6vw, 1.5rem); }
   .project-meta { margin-top: var(--space-6); }

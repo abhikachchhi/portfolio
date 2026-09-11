@@ -79,7 +79,7 @@ export function SystemPage() {
               <div className="chip-options">
                 <div className="chip-option"><span>01 / Mist</span><Chip variant="mist">React</Chip></div>
                 <div className="chip-option"><span>02 / Bevel</span><Chip variant="bevel">Featured</Chip></div>
-                <div className="chip-option"><span>03 / Outline</span><Chip variant="outline">WebGL</Chip></div>
+                <div className="chip-option"><span>03 / Outline</span><Chip variant="outline">CSS</Chip></div>
                 <div className="chip-option"><span>04 / Solid</span><Chip variant="solid">Selected</Chip></div>
                 <div className="chip-option"><span>05 / Violet signal</span><Chip accent="violet" variant="indicator">Live</Chip></div>
                 <div className="chip-option"><span>06 / Cyan signal</span><Chip accent="cyan" variant="indicator">Experiment</Chip></div>

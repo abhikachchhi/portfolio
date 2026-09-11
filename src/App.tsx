@@ -7,6 +7,7 @@ import { HomePage } from './pages/HomePage'
 import { NotFoundPage } from './pages/NotFoundPage'
 import { PlaygroundPage } from './pages/PlaygroundPage'
 import { ProjectDetailPage } from './pages/ProjectDetailPage'
+import { GameShell } from './components/loop-tac/GameShell'
 import { SystemPage } from './pages/SystemPage'
 import { WorkPage } from './pages/WorkPage'
 import { getProjectBySlug } from './data/projects'
@@ -18,6 +19,7 @@ const pageTitles: Record<string, string> = {
   '/work': 'Work — Abhishek Kachchhi',
   '/about': 'About — Abhishek Kachchhi',
   '/playground': 'Playground — Abhishek Kachchhi',
+  '/playground/loop-tac': 'LOOP/TAC — Abhishek Kachchhi',
   '/system': 'Design System — Abhishek Kachchhi',
 }
 
@@ -29,7 +31,7 @@ function getProjectSlug(path: string) {
 
 function App() {
   const [path, setPath] = useState(window.location.pathname)
-  const [introActive, setIntroActive] = useState(shouldPlayIntro)
+  const [introActive, setIntroActive] = useState(() => window.location.pathname === '/' && shouldPlayIntro())
   const projectSlug = getProjectSlug(path)
   const currentProject = projectSlug ? getProjectBySlug(projectSlug) : undefined
 
@@ -74,6 +76,7 @@ function App() {
   else if (currentProject) page = <ProjectDetailPage project={currentProject} />
   else if (path === '/about') page = <AboutPage />
   else if (path === '/playground') page = <PlaygroundPage />
+  else if (path === '/playground/loop-tac') page = <GameShell />
   else page = <NotFoundPage />
 
   return (

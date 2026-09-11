@@ -1,6 +1,6 @@
 import { Chip } from '../components/Chip'
 
-const skills = ['React', 'TypeScript', 'Interaction', 'Creative coding', 'WebGL', 'Prototyping']
+const skills = ['React', 'TypeScript', 'Interaction', 'Creative coding', 'UI engineering', 'Prototyping']
 
 export function AboutPage() {
   return (
