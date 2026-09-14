@@ -121,7 +121,7 @@ export function ProjectPreview({ project, layout, headingLevel = 3 }: ProjectPre
 
         <div className="project-preview__body">
           <div className="project-preview__meta"><span>{project.category}</span><span>{project.year}</span></div>
-          <Heading className="project-preview__title">{project.title}</Heading>
+          <Heading className={`project-preview__title${project.title.length > 10 ? ' project-preview__title--compact' : ''}`}>{project.title}</Heading>
           <p>{project.summary}</p>
           <div className="project-preview__footer">
             {project.tags?.length ? <div className="chip-row" aria-label="Technologies">{project.tags.map((tag) => <Chip variant="inset-d" key={tag}>{tag}</Chip>)}</div> : <span />}

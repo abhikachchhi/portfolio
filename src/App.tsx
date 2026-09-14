@@ -5,9 +5,9 @@ import { shouldPlayIntro } from './components/intro/introState'
 import { AboutPage } from './pages/AboutPage'
 import { HomePage } from './pages/HomePage'
 import { NotFoundPage } from './pages/NotFoundPage'
-import { PlaygroundPage } from './pages/PlaygroundPage'
 import { ProjectDetailPage } from './pages/ProjectDetailPage'
-import { GameShell } from './components/loop-tac/GameShell'
+import { ProjectsPage } from './pages/ProjectsPage'
+import { PlaygroundPage } from './pages/PlaygroundPage'
 import { SystemPage } from './pages/SystemPage'
 import { WorkPage } from './pages/WorkPage'
 import { getProjectBySlug } from './data/projects'
@@ -16,15 +16,16 @@ import './styles/site.css'
 
 const pageTitles: Record<string, string> = {
   '/': 'Abhishek Kachchhi — Creative Developer',
-  '/work': 'Work — Abhishek Kachchhi',
+  '/work': 'Experience — Abhishek Kachchhi',
+  '/projects': 'Projects — Abhishek Kachchhi',
   '/about': 'About — Abhishek Kachchhi',
   '/playground': 'Playground — Abhishek Kachchhi',
-  '/playground/loop-tac': 'LOOP/TAC — Abhishek Kachchhi',
+  '/playground/word-shift': 'WORD//SHIFT — Playground — Abhishek Kachchhi',
   '/system': 'Design System — Abhishek Kachchhi',
 }
 
 function getProjectSlug(path: string) {
-  const match = path.match(/^\/work\/([^/]+)\/?$/)
+  const match = path.match(/^\/(?:projects|work)\/([^/]+)\/?$/)
   if (!match) return undefined
   try { return decodeURIComponent(match[1]) } catch { return undefined }
 }
@@ -53,7 +54,7 @@ function App() {
       description.name = 'description'
       document.head.appendChild(description)
     }
-    description.content = currentProject?.seo?.description ?? currentProject?.summary ?? 'Selected work and interactive experiences by Abhishek Kachchhi.'
+    description.content = currentProject?.seo?.description ?? currentProject?.summary ?? 'Selected projects, experience, and interactive experiments by Abhishek Kachchhi.'
     window.scrollTo({ top: 0, behavior: 'instant' })
   }, [currentProject, path])
 
@@ -62,7 +63,13 @@ function App() {
   }
 
   const navigate = (to: string) => {
-    if (to === path) return
+    if (to === path) {
+      if (to === '/') {
+        const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+        window.scrollTo({ top: 0, behavior: reducedMotion ? 'auto' : 'smooth' })
+      }
+      return
+    }
     setIntroActive(false)
     window.history.pushState({}, '', to)
     setPath(to)
@@ -73,10 +80,11 @@ function App() {
   let page
   if (path === '/') page = <HomePage />
   else if (path === '/work') page = <WorkPage />
+  else if (path === '/projects') page = <ProjectsPage />
   else if (currentProject) page = <ProjectDetailPage project={currentProject} />
   else if (path === '/about') page = <AboutPage />
   else if (path === '/playground') page = <PlaygroundPage />
-  else if (path === '/playground/loop-tac') page = <GameShell />
+  else if (path === '/playground/word-shift') page = <PlaygroundPage initialGame="word-shift" />
   else page = <NotFoundPage />
 
   return (

@@ -58,6 +58,7 @@ describe('LOOP/TAC rules', () => {
   it('has no draw state and stops after a winner', () => {
     const state = play(createInitialGameState(), [0, 3, 1, 4, 2])
     expect(state.winner).toBe('X')
+    expect(state.draw).toBe(false)
     expect(makeMove(state, 5)).toBe(state)
   })
 
@@ -72,5 +73,25 @@ describe('LOOP/TAC rules', () => {
     expect(getExpiringCell(state, 'X')).toBe(0)
     expect(getExpiringCell(state, 'O')).toBe(3)
     expect(getExpiringCell(createInitialGameState())).toBeNull()
+  })
+
+  it('enables loop mode by default', () => {
+    expect(createInitialGameState().mode).toBe('loop')
+  })
+
+  it('keeps every mark and disables expiry in classic mode', () => {
+    const state = play(createInitialGameState('classic'), [0, 1, 2, 4, 3, 5, 7])
+    expect(state.xHistory).toEqual([0, 2, 3, 7])
+    expect(state.board[0]).toBe('X')
+    expect(getExpiringCell(state)).toBeNull()
+    expect(state.draw).toBe(false)
+  })
+
+  it('resolves a full classic board as a draw and locks further moves', () => {
+    const state = play(createInitialGameState('classic'), [0, 1, 2, 4, 3, 5, 7, 6, 8])
+    expect(state.winner).toBeNull()
+    expect(state.draw).toBe(true)
+    expect(makeMove(state, 0)).toBe(state)
+    expect(resetGame('classic')).toEqual(createInitialGameState('classic'))
   })
 })

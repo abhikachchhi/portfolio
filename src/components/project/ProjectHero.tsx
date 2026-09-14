@@ -1,4 +1,5 @@
 import type { Project } from '../../data/projects'
+import { Link } from '../../routing'
 import { Chip } from '../Chip'
 import { ProjectMedia } from './ProjectMedia'
 
@@ -12,10 +13,10 @@ export function ProjectHero({ project }: { project: Project }) {
   return (
     <header className="project-hero page-frame">
       <div className="project-hero__topline"><span>{project.index} / Project</span><span>{project.category} · {project.year}</span></div>
-      <h1>{project.title}</h1>
+      <h1 className={project.title.length > 10 ? 'project-hero__title--compact' : undefined}>{project.title}</h1>
       <div className="project-hero__introduction">
         <p>{project.summary}</p>
-        {links.length ? <nav className="project-hero__actions" aria-label="Project links">{links.map((link) => <a className="site-button site-button--secondary" href={link.url} target="_blank" rel="noreferrer" key={link.url}>{link.label} <span aria-hidden="true">↗</span></a>)}</nav> : null}
+        {links.length ? <nav className="project-hero__actions" aria-label="Project links">{links.map((link) => link.url.startsWith('/') ? <Link className="site-button site-button--secondary" to={link.url} key={link.url}>{link.label} <span aria-hidden="true">↗</span></Link> : <a className="site-button site-button--secondary" href={link.url} target="_blank" rel="noreferrer" key={link.url}>{link.label} <span aria-hidden="true">↗</span></a>)}</nav> : null}
       </div>
       <dl className="project-meta">
         {project.role ? <div><dt>Role</dt><dd>{project.role}</dd></div> : null}

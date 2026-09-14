@@ -31,6 +31,7 @@
 .project-preview__meta > span { min-width: 0; overflow-wrap: anywhere; }
 .project-preview__meta > span:last-child { flex: 0 0 auto; }
 .project-preview__title { max-width: 100%; margin: auto 0 var(--space-5); overflow-wrap: normal; word-break: normal; hyphens: none; text-wrap: balance; font-family: var(--font-display); font-size: clamp(2.4rem, 11cqi, 4.8rem); font-weight: 400; letter-spacing: -0.06em; line-height: 0.87; transition: transform var(--duration-slow) var(--ease-material); }
+.project-preview__title--compact { font-size: clamp(1.75rem, 8.5cqi, 4rem); white-space: nowrap; }
 .project-preview p { min-width: 0; max-width: 35rem; margin: 0 0 var(--space-8); overflow-wrap: anywhere; color: var(--color-text-muted); font-size: clamp(1rem, 1.35vw, 1.15rem); }
 .project-preview__footer { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: var(--space-5); padding-top: var(--space-5); border-top: 1px solid var(--color-border); }
 .project-preview__footer .chip-row { min-width: 0; }

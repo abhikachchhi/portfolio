@@ -23,7 +23,7 @@ export function GameCell({ index, value, currentPlayer, expiring, winning, lastM
       disabled={disabled}
       onClick={() => onSelect(index)}
     >
-      {value ? <span aria-hidden="true">{value}</span> : null}
+      {value ? <span className={`loop-tac__mark loop-tac__mark--${value}`} aria-hidden="true" /> : null}
     </button>
   )
 }

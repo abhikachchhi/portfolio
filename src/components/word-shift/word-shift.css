@@ -1,0 +1,96 @@
+.playground-hub { position: relative; min-height: 100svh; }
+
+.word-shift-game { position: relative; min-height: 100svh; overflow: hidden; padding: clamp(11rem, 19svh, 12.5rem) 0 clamp(1.25rem, 3svh, 2rem); }
+.word-shift-game--embedded { min-height: auto; padding-top: clamp(5rem, 10vw, 9rem); border-top: 1px solid var(--color-border); }
+.word-shift-game::before { content: ''; position: absolute; z-index: -1; inset: 0; background: radial-gradient(circle at 60% 36%, rgba(100, 224, 255, 0.035), transparent 30rem), linear-gradient(rgba(245, 246, 248, 0.018) 1px, transparent 1px), linear-gradient(90deg, rgba(245, 246, 248, 0.018) 1px, transparent 1px); background-size: auto, 4rem 4rem, 4rem 4rem; }
+.word-shift-game__frame { display: grid; gap: clamp(1.5rem, 3svh, 2.5rem); }
+.word-shift-game__intro { width: min(100%, 58rem); margin-inline: auto; }
+.word-shift-game__intro > div { display: flex; justify-content: space-between; gap: var(--space-4); padding-bottom: var(--space-4); border-bottom: 1px solid var(--color-border); color: var(--color-text-subtle); font-size: var(--text-meta); font-weight: 620; letter-spacing: 0.1em; }
+.word-shift-game__intro h1 { max-width: 100%; margin: clamp(1.75rem, 3svh, 2.5rem) 0 var(--space-4); overflow-wrap: normal; font-family: var(--font-display); font-size: clamp(3.25rem, 8vw, 7.5rem); font-weight: 400; letter-spacing: -0.08em; line-height: 0.78; white-space: nowrap; }
+.word-shift-game__intro h1 span { color: var(--color-violet); }
+.word-shift-game__intro > p { margin: 0; color: var(--color-text-muted); font-size: clamp(1.05rem, 2vw, 1.4rem); line-height: 1.4; }
+
+.word-shift-game__panel { width: min(100%, 66rem); justify-self: center; padding: clamp(1rem, 2.5vw, 1.75rem); border-radius: clamp(1.25rem, 4vw, 2.25rem); }
+.word-shift-game__status { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: var(--space-3); padding-bottom: var(--space-4); border-bottom: 1px solid var(--color-border); color: var(--color-text-muted); font-size: var(--text-meta); font-weight: 620; letter-spacing: 0.08em; }
+.word-shift-game__status > div:first-of-type { display: flex; align-items: center; gap: var(--space-2); color: var(--color-text); }
+.word-shift-game__status > div:first-of-type > span { width: 0.45rem; height: 0.45rem; border-radius: 50%; background: var(--color-cyan); box-shadow: 0 0 0.8rem rgba(100, 224, 255, 0.55); }
+.word-shift-game__status p { grid-column: 1 / -1; margin: 0; color: var(--color-text-subtle); }
+.word-shift-game__layout { display: grid; grid-template-columns: minmax(18rem, 0.78fr) minmax(22rem, 1.22fr); gap: clamp(2rem, 5vw, 4.5rem); padding-block: clamp(1.5rem, 3vw, 2.5rem); }
+
+.word-shift-game__board { display: grid; align-self: start; gap: 0.42rem; }
+.word-shift-game__board > div { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0.42rem; }
+.word-shift-game__tile { position: relative; aspect-ratio: 1; display: grid; place-items: center; border: 1px solid rgba(245, 246, 248, 0.11); border-radius: 0.6rem; background: rgba(10, 10, 13, 0.38); color: var(--color-text); font-size: clamp(1.2rem, 2.5vw, 1.9rem); font-weight: 600; }
+.word-shift-game__tile.is-filled:not(.is-evaluated) { border-color: rgba(100, 224, 255, 0.35); animation: word-shift-type 140ms var(--ease-out); }
+.word-shift-game__tile.is-evaluated { animation: word-shift-resolve 440ms var(--ease-material) both; animation-delay: calc(var(--tile-index) * 65ms); }
+.word-shift-game__tile.is-correct { border-color: rgba(153, 190, 162, 0.7); background: #526c59; }
+.word-shift-game__tile.is-present { border-color: rgba(195, 180, 129, 0.66); background: #706749; }
+.word-shift-game__tile.is-absent { background: #25282e; color: var(--color-text-muted); }
+.word-shift-game__tile i { position: absolute; top: 0.25rem; right: 0.35rem; font-size: 0.55rem; font-style: normal; opacity: 0.65; }
+.word-shift-game__board.is-invalid { animation: word-shift-shake 260ms ease-in-out; }
+
+.word-shift-game__tools { min-width: 0; display: flex; flex-direction: column; justify-content: space-between; gap: var(--space-8); }
+.word-shift-game__deduction { padding-block: var(--space-4); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border); }
+.word-shift-game__deduction > div { display: flex; justify-content: space-between; gap: var(--space-5); }
+.word-shift-game__deduction span { color: var(--color-text-subtle); font-size: var(--text-meta); font-weight: 620; letter-spacing: 0.08em; }
+.word-shift-game__deduction p { margin: var(--space-2) 0 0; color: var(--color-text-muted); font-size: var(--text-small); }
+.word-shift-game__deduction > div > strong { font-family: var(--font-display); font-size: clamp(2.2rem, 4vw, 4rem); font-weight: 400; line-height: 0.8; }
+.word-shift-game__deduction ol { margin: var(--space-5) 0 0; padding: 0; display: grid; gap: var(--space-2); list-style: none; }
+.word-shift-game__deduction li { display: grid; grid-template-columns: 3rem 1fr 2.5rem; align-items: center; gap: var(--space-3); font-size: var(--text-meta); }
+.word-shift-game__deduction li > i { height: 1px; background: var(--color-border); }
+.word-shift-game__deduction li b { height: 100%; display: block; background: linear-gradient(90deg, var(--color-cyan), var(--color-violet)); }
+.word-shift-game__deduction li strong { color: var(--color-text-muted); text-align: right; }
+
+.word-shift-game__keyboard { display: grid; gap: 0.35rem; }
+.word-shift-game__keyboard > div { min-width: 0; display: flex; justify-content: center; gap: 0.3rem; }
+.word-shift-game__keyboard button { position: relative; min-width: 0; height: clamp(2.6rem, 5vw, 3.25rem); flex: 1 1 0; padding: 0 0.2rem; border: 1px solid var(--color-border); border-radius: 0.4rem; background: var(--color-surface-raised); color: var(--color-text); cursor: pointer; font-size: clamp(0.58rem, 1vw, 0.72rem); font-weight: 620; }
+.word-shift-game__keyboard button.is-action { flex-grow: 1.55; font-size: 0.55rem; }
+.word-shift-game__keyboard button.is-correct { background: #526c59; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.14); }
+.word-shift-game__keyboard button.is-present { background: #706749; }
+.word-shift-game__keyboard button.is-absent { background: #25282e; color: var(--color-text-subtle); }
+.word-shift-game__keyboard button > i { position: absolute; top: 0.22rem; right: 0.22rem; width: 0.25rem; height: 0.25rem; border: 1px solid currentColor; border-radius: 50%; opacity: 0.55; }
+.word-shift-game__keyboard button:focus-visible, .word-shift-game__controls button:focus-visible, .word-shift-game__archive button:focus-visible { outline: 2px solid var(--color-cyan); outline-offset: 3px; }
+
+.word-shift-game__controls { display: flex; justify-content: space-between; align-items: flex-end; gap: var(--space-5); padding-top: var(--space-5); border-top: 1px solid var(--color-border); }
+.word-shift-game__controls > div:first-child { display: grid; gap: var(--space-2); }
+.word-shift-game__controls > div:first-child strong { font-size: var(--text-small); letter-spacing: 0.07em; }
+.word-shift-game__controls > div:first-child span { color: var(--color-text-subtle); font-size: var(--text-small); }
+.word-shift-game__controls > div:last-child { display: flex; gap: var(--space-3); }
+.word-shift-game__controls button, .word-shift-game__archive button { min-height: 2.75rem; padding-inline: var(--space-4); border: 1px solid var(--glass-elevated-border); border-radius: var(--radius-pill); background: var(--glass-subtle-bg); color: var(--color-text); cursor: pointer; font-size: var(--text-small); }
+.word-shift-game__footer { display: flex; justify-content: space-between; gap: var(--space-5); color: var(--color-text-subtle); font-size: var(--text-meta); letter-spacing: 0.08em; }
+
+.word-shift-game__archive { padding-top: var(--space-6); }
+.word-shift-game__archive-head { display: flex; justify-content: space-between; align-items: end; gap: var(--space-5); }
+.word-shift-game__archive-head span { color: var(--color-text-subtle); font-size: var(--text-meta); letter-spacing: 0.08em; }
+.word-shift-game__archive h2 { margin: var(--space-3) 0 0; font-family: var(--font-display); font-size: clamp(2rem, 5vw, 4.5rem); font-weight: 400; }
+.word-shift-game__archive > div:last-child { margin-top: var(--space-8); display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-3); }
+.word-shift-game__archive > div:last-child button { min-height: 6rem; display: flex; flex-direction: column; align-items: flex-start; justify-content: space-between; border-radius: var(--radius-md); color: var(--color-text-muted); }
+.word-shift-game__archive > div:last-child button.is-active { border-color: rgba(139, 124, 255, 0.45); background: rgba(139, 124, 255, 0.09); }
+.word-shift-game__archive strong { color: var(--color-text); font-size: var(--text-meta); letter-spacing: 0.08em; }
+
+@keyframes word-shift-type { 50% { transform: scale(1.05); } }
+@keyframes word-shift-resolve { 45% { transform: rotateX(82deg); } }
+@keyframes word-shift-shake { 25% { transform: translateX(-0.3rem); } 50% { transform: translateX(0.25rem); } 75% { transform: translateX(-0.12rem); } }
+
+@media (max-width: 760px) {
+  .word-shift-game:not(.word-shift-game--embedded) { padding-top: 8rem; }
+  .word-shift-game__layout { grid-template-columns: 1fr; }
+  .word-shift-game__board { width: min(100%, 28rem); justify-self: center; }
+  .word-shift-game__archive > div:last-child { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 430px) {
+  .word-shift-game__intro h1 { font-size: clamp(2.4rem, 12vw, 3.4rem); }
+  .word-shift-game__panel { padding: var(--space-4); }
+  .word-shift-game__layout { gap: var(--space-8); }
+  .word-shift-game__board, .word-shift-game__board > div { gap: 0.28rem; }
+  .word-shift-game__tile { border-radius: 0.42rem; font-size: 1.2rem; }
+  .word-shift-game__keyboard > div { gap: 0.18rem; }
+  .word-shift-game__keyboard button { height: 2.7rem; padding: 0; font-size: 0.58rem; }
+  .word-shift-game__controls, .word-shift-game__footer, .word-shift-game__archive-head { align-items: flex-start; flex-direction: column; }
+  .word-shift-game__controls > div:last-child { width: 100%; }
+  .word-shift-game__controls button { flex: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .word-shift-game *, .word-shift-game *::before, .word-shift-game *::after { animation: none !important; transition: none !important; }
+}

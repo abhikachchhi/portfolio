@@ -5,6 +5,7 @@ import { NavGlassSurface } from './NavGlassSurface'
 const links = [
   { label: 'Home', to: '/' },
   { label: 'Work', to: '/work' },
+  { label: 'Projects', to: '/projects' },
   { label: 'About', to: '/about' },
   { label: 'Playground', to: '/playground' },
 ]
@@ -63,7 +64,7 @@ export function SiteNav() {
         <div className="site-nav__links">
           {links.map((link) => <Link className={isActive(link.to) ? 'is-active' : ''} aria-current={isActive(link.to) ? 'page' : undefined} to={link.to} key={link.to}>{link.label}</Link>)}
         </div>
-        <a className="site-nav__contact" href="mailto:hello@abhishekkachchhi.dev">Let's talk <span aria-hidden="true">↗</span></a>
+        <a className="site-nav__contact" href="mailto:abhikachchhi@gmail.com">Let's talk <span aria-hidden="true">↗</span></a>
         <button ref={triggerRef} className="site-nav__menu-trigger" type="button" aria-expanded={isOpen} aria-controls="mobile-menu" aria-label={isOpen ? 'Close menu' : 'Open menu'} onClick={() => setIsOpen((open) => !open)}>
           <span aria-hidden="true">{isOpen ? '×' : '+'}</span>
         </button>
@@ -75,7 +76,7 @@ export function SiteNav() {
             <div className="mobile-menu__links">
               {links.map((link, index) => <Link ref={index === 0 ? firstLinkRef : undefined} className={isActive(link.to) ? 'is-active' : ''} aria-current={isActive(link.to) ? 'page' : undefined} to={link.to} onClick={closeMenu} key={link.to}><span>0{index + 1}</span>{link.label}</Link>)}
             </div>
-            <a className="mobile-menu__contact" href="mailto:hello@abhishekkachchhi.dev">Start a conversation <span aria-hidden="true">↗</span></a>
+            <a className="mobile-menu__contact" href="mailto:abhikachchhi@gmail.com">Start a conversation <span aria-hidden="true">↗</span></a>
           </div>
         </div>
       )}

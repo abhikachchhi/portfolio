@@ -24,6 +24,7 @@
 .project-hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(17rem, 0.4fr); gap: var(--space-8); }
 .project-hero__topline { grid-column: 1 / -1; display: flex; justify-content: space-between; gap: var(--space-5); padding-bottom: var(--space-4); border-bottom: 1px solid var(--color-border); color: var(--color-text-subtle); font-size: var(--text-meta); font-weight: 620; letter-spacing: 0.09em; text-transform: uppercase; }
 .project-hero h1 { grid-column: 1 / -1; max-width: 12ch; margin: clamp(3rem, 8vw, 7rem) 0 clamp(2.5rem, 6vw, 5rem); overflow-wrap: anywhere; font-family: var(--font-display); font-size: clamp(3.25rem, 10vw, 9.75rem); font-weight: 400; letter-spacing: -0.07em; line-height: 0.8; }
+.project-hero h1.project-hero__title--compact { max-width: 100%; overflow-wrap: normal; font-size: clamp(2.8rem, 8vw, 8rem); white-space: nowrap; }
 .project-hero__introduction { display: flex; flex-direction: column; align-items: flex-start; justify-content: space-between; gap: var(--space-8); }
 .project-hero__introduction > p { max-width: 36rem; margin: 0; color: var(--color-text); font-size: clamp(1.2rem, 2.3vw, 1.75rem); line-height: 1.35; }
 .project-hero__actions { display: flex; flex-wrap: wrap; gap: var(--space-3); }
@@ -69,7 +70,7 @@
 .project-section--callout { display: grid; grid-template-columns: minmax(12rem, 0.3fr) minmax(0, 0.7fr); gap: var(--space-8); }
 .project-section--callout > span { margin: var(--space-3) 0 0; }
 .project-section--callout blockquote { max-width: 58rem; margin: 0; }
-.project-section--callout blockquote p { margin: 0; font-family: var(--font-display); font-size: clamp(2.25rem, 5vw, 5rem); letter-spacing: -0.055em; line-height: 0.95; }
+.project-section--callout blockquote p { margin: 0; font-family: var(--font-ui); font-size: clamp(1.75rem, 3.2vw, 3.4rem); font-weight: 430; letter-spacing: -0.04em; line-height: 1.08; text-wrap: balance; }
 .project-section--callout cite { display: block; margin-top: var(--space-6); color: var(--color-text-muted); font-family: var(--font-ui); font-size: var(--text-small); font-style: normal; }
 
 .project-navigation { padding-block: var(--section-space); border-top: 1px solid var(--color-border); }
@@ -95,6 +96,7 @@
   .project-hero__topline span { min-width: 0; overflow-wrap: anywhere; }
   .project-hero__topline span:last-child { max-width: 13rem; margin-left: auto; text-align: right; }
   .project-hero h1 { margin: clamp(2.75rem, 15vw, 4.5rem) 0 var(--space-8); font-size: clamp(2.8rem, 14vw, 5.2rem); line-height: 0.84; }
+  .project-hero h1.project-hero__title--compact { font-size: clamp(2rem, 9vw, 4.5rem); }
   .project-hero__introduction > p { font-size: clamp(1.15rem, 6vw, 1.5rem); }
   .project-meta { margin-top: var(--space-6); }
   .project-meta > div { padding-inline: 0 !important; border-left: 0 !important; }

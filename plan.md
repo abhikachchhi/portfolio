@@ -45,9 +45,10 @@ Likely routes:
 
 `/`  
 `/work`  
-`/work/:slug`  
+`/projects`
+`/projects/:slug`
 `/about`  
-`/playground` eventually
+`/playground`
 
 ---
 
