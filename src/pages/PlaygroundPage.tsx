@@ -4,8 +4,13 @@ import '../components/word-shift/word-shift.css'
 
 type PlaygroundGame = 'loop-tac' | 'word-shift'
 
-export function PlaygroundPage({ initialGame = 'loop-tac' }: { initialGame?: PlaygroundGame }) {
-  if (initialGame === 'word-shift') return <WordShiftGame />
+type PlaygroundPageProps = {
+  initialGame?: PlaygroundGame
+  standalone?: boolean
+}
+
+export function PlaygroundPage({ initialGame = 'loop-tac', standalone = false }: PlaygroundPageProps) {
+  if (standalone) return initialGame === 'word-shift' ? <WordShiftGame /> : <LoopTacGame />
 
   return (
     <div className="playground-hub">

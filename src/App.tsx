@@ -11,6 +11,7 @@ import { PlaygroundPage } from './pages/PlaygroundPage'
 import { SystemPage } from './pages/SystemPage'
 import { WorkPage } from './pages/WorkPage'
 import { getProjectBySlug } from './data/projects'
+import { normalizePath } from './pathUtils'
 import { RouterProvider } from './routing'
 import './styles/site.css'
 
@@ -20,8 +21,20 @@ const pageTitles: Record<string, string> = {
   '/projects': 'Projects — Abhishek Kachchhi',
   '/about': 'About — Abhishek Kachchhi',
   '/playground': 'Playground — Abhishek Kachchhi',
+  '/playground/loop-tac': 'LOOP/TAC — Playground — Abhishek Kachchhi',
   '/playground/word-shift': 'WORD//SHIFT — Playground — Abhishek Kachchhi',
   '/system': 'Design System — Abhishek Kachchhi',
+}
+
+const pageDescriptions: Record<string, string> = {
+  '/': 'Interactive web experiences, thoughtful systems, and selected projects by Abhishek Kachchhi.',
+  '/work': 'Current frontend development and interactive systems practice by Abhishek Kachchhi.',
+  '/projects': 'Selected interactive projects by Abhishek Kachchhi, including LOOP/TAC and WORD//SHIFT.',
+  '/about': 'About Abhishek Kachchhi, a developer focused on interactive web experiences, clear systems, and thoughtful detail.',
+  '/playground': 'Playable interface and game experiments by Abhishek Kachchhi.',
+  '/playground/loop-tac': 'Play LOOP/TAC, a compact strategy game where move order continuously reshapes the board.',
+  '/playground/word-shift': 'Play WORD//SHIFT, a five-letter deduction game with a visible remaining search space.',
+  '/system': 'The typography, color, component, and glass-material foundation for Abhishek Kachchhi’s portfolio.',
 }
 
 function getProjectSlug(path: string) {
@@ -31,14 +44,14 @@ function getProjectSlug(path: string) {
 }
 
 function App() {
-  const [path, setPath] = useState(window.location.pathname)
+  const [path, setPath] = useState(() => normalizePath(window.location.pathname))
   const [introActive, setIntroActive] = useState(() => window.location.pathname === '/' && shouldPlayIntro())
   const projectSlug = getProjectSlug(path)
   const currentProject = projectSlug ? getProjectBySlug(projectSlug) : undefined
 
   useEffect(() => {
     const handlePopState = () => {
-      const nextPath = window.location.pathname
+      const nextPath = normalizePath(window.location.pathname)
       setIntroActive(false)
       setPath(nextPath)
     }
@@ -47,14 +60,24 @@ function App() {
   }, [])
 
   useEffect(() => {
-    document.title = currentProject?.seo?.title ?? (currentProject ? `${currentProject.title} — Abhishek Kachchhi` : pageTitles[path] ?? 'Page not found — Abhishek Kachchhi')
-    let description = document.querySelector<HTMLMetaElement>('meta[name="description"]')
-    if (!description) {
-      description = document.createElement('meta')
-      description.name = 'description'
-      document.head.appendChild(description)
+    const title = currentProject?.seo?.title ?? (currentProject ? `${currentProject.title} — Abhishek Kachchhi` : pageTitles[path] ?? 'Page not found — Abhishek Kachchhi')
+    const description = currentProject?.seo?.description ?? currentProject?.summary ?? pageDescriptions[path] ?? 'The requested page could not be found on Abhishek Kachchhi’s portfolio.'
+    const setMeta = (attribute: 'name' | 'property', key: string, content: string) => {
+      let element = document.querySelector<HTMLMetaElement>(`meta[${attribute}="${key}"]`)
+      if (!element) {
+        element = document.createElement('meta')
+        element.setAttribute(attribute, key)
+        document.head.appendChild(element)
+      }
+      element.content = content
     }
-    description.content = currentProject?.seo?.description ?? currentProject?.summary ?? 'Selected projects, experience, and interactive experiments by Abhishek Kachchhi.'
+
+    document.title = title
+    setMeta('name', 'description', description)
+    setMeta('property', 'og:title', title)
+    setMeta('property', 'og:description', description)
+    setMeta('property', 'og:type', 'website')
+    setMeta('name', 'twitter:card', 'summary')
     window.scrollTo({ top: 0, behavior: 'instant' })
   }, [currentProject, path])
 
@@ -63,16 +86,17 @@ function App() {
   }
 
   const navigate = (to: string) => {
-    if (to === path) {
-      if (to === '/') {
+    const nextPath = normalizePath(to)
+    if (nextPath === path) {
+      if (nextPath === '/') {
         const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
         window.scrollTo({ top: 0, behavior: reducedMotion ? 'auto' : 'smooth' })
       }
       return
     }
     setIntroActive(false)
-    window.history.pushState({}, '', to)
-    setPath(to)
+    window.history.pushState({}, '', nextPath)
+    setPath(nextPath)
   }
 
   if (path === '/system') return <SystemPage />
@@ -84,7 +108,8 @@ function App() {
   else if (currentProject) page = <ProjectDetailPage project={currentProject} />
   else if (path === '/about') page = <AboutPage />
   else if (path === '/playground') page = <PlaygroundPage />
-  else if (path === '/playground/word-shift') page = <PlaygroundPage initialGame="word-shift" />
+  else if (path === '/playground/loop-tac') page = <PlaygroundPage initialGame="loop-tac" standalone />
+  else if (path === '/playground/word-shift') page = <PlaygroundPage initialGame="word-shift" standalone />
   else page = <NotFoundPage />
 
   return (

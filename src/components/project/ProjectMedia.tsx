@@ -53,7 +53,7 @@ export function ProjectMedia({ media, className = '', priority = false, preview 
     content = <ProjectVideo media={media} preview={preview} priority={priority} />
   } else {
     content = (
-      <div className={`project-media__placeholder project-media__placeholder--${media.treatment}`} role="img" aria-label={`${media.label}; temporary project media placeholder`}>
+      <div className={`project-media__placeholder project-media__placeholder--${media.treatment}`} role="img" aria-label={media.label}>
         <span /><span /><span />
       </div>
     )

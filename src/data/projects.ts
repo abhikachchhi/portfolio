@@ -99,6 +99,7 @@ export type Project = {
   role?: string
   tags?: string[]
   featured?: boolean
+  published?: boolean
   thumbnail?: ProjectMedia
   heroMedia?: ProjectMedia
   githubUrl?: string
@@ -112,10 +113,10 @@ const placeholder = (treatment: PlaceholderTreatment, label: string, aspect: Pro
 
 export const projects: Project[] = [
   {
-    index: '01', slug: 'loop-tac', title: 'LOOP/TAC', summary: 'A compact strategy game where each player keeps only three active marks and every fourth move reshapes the board.', year: '2026', status: 'selected', category: 'Strategy game / Interactive system', role: 'Design and development', tags: ['React', 'TypeScript', 'Game Logic', 'Accessibility'], featured: true,
-    thumbnail: placeholder('aperture', 'LOOP/TAC game board placeholder'),
-    heroMedia: placeholder('aperture', 'LOOP/TAC case-study media placeholder', 'cinematic'),
-    externalLinks: [{ label: 'Play LOOP/TAC', url: '/playground' }],
+    index: '01', slug: 'loop-tac', title: 'LOOP/TAC', summary: 'A compact strategy game where each player keeps only three active marks and every fourth move reshapes the board.', year: '2026', status: 'selected', category: 'Strategy game / Interactive system', role: 'Design and development', tags: ['React', 'TypeScript', 'Game Logic', 'Accessibility'], featured: true, published: true,
+    thumbnail: placeholder('aperture', 'Abstract LOOP/TAC game-board study'),
+    heroMedia: placeholder('aperture', 'Abstract LOOP/TAC interface study', 'cinematic'),
+    externalLinks: [{ label: 'Play LOOP/TAC', url: '/playground/loop-tac' }],
     sections: [
       { id: 'loop-tac-idea', type: 'text', eyebrow: 'The idea', heading: 'A familiar grid that refuses to stay still.', body: ['LOOP/TAC begins with the structure of tic-tac-toe, then limits each player to three active marks. Placing a fourth removes the oldest, turning a solved grid into a continuously changing system.'] },
       { id: 'loop-tac-rules', type: 'details', eyebrow: 'Rule system', heading: 'Two modes, one clear state model.', items: [{ label: 'Loop', detail: 'Enabled by default. Each player keeps three active marks and the oldest one exits when a fourth is placed.' }, { label: 'Classic', detail: 'Disables mark recycling and restores a conventional full-board draw state.' }, { label: 'Feedback', detail: 'The interface identifies the active player, resolved state, move count, and the oldest mark due to leave.' }] },
@@ -124,16 +125,16 @@ export const projects: Project[] = [
     seo: { title: 'LOOP/TAC — Abhishek Kachchhi', description: 'LOOP/TAC is a compact strategy game built around three active marks, move order, and an optional looping board.' },
   },
   {
-    index: '02', slug: 'word-shift', title: 'WORD//SHIFT', summary: 'Five letters, six attempts, and a visible search space. Every guess reveals both letter feedback and how much uncertainty remains.', year: '2026', status: 'selected', category: 'Word game / Interactive system', role: 'Design and development', tags: ['React', 'TypeScript', 'Game Logic', 'Accessibility', 'Vitest'], featured: true,
-    thumbnail: placeholder('signal', 'WORD//SHIFT game interface placeholder'),
-    heroMedia: { ...placeholder('signal', 'WORD//SHIFT hero media placeholder', 'cinematic'), caption: 'Temporary media placeholder — replace with a real WORD//SHIFT capture.' },
+    index: '02', slug: 'word-shift', title: 'WORD//SHIFT', summary: 'Five letters, six attempts, and a visible search space. Every guess reveals both letter feedback and how much uncertainty remains.', year: '2026', status: 'selected', category: 'Word game / Interactive system', role: 'Design and development', tags: ['React', 'TypeScript', 'Game Logic', 'Accessibility', 'Vitest'], featured: true, published: true,
+    thumbnail: placeholder('signal', 'Abstract WORD//SHIFT interface study'),
+    heroMedia: placeholder('signal', 'Abstract WORD//SHIFT signal study', 'cinematic'),
     externalLinks: [{ label: 'Play WORD//SHIFT', url: '/playground/word-shift' }],
     sections: [
       { id: 'word-shift-idea', type: 'text', eyebrow: 'The idea', heading: 'Every guess narrows the field.', body: ['WORD//SHIFT extends a familiar five-letter deduction format with one additional layer: after every valid guess, the interface calculates how many candidate words remain consistent with everything learned so far.', 'The player sees both what the guess revealed and how much uncertainty it removed.'] },
-      { id: 'word-shift-feedback', type: 'split', eyebrow: 'Feedback logic', heading: 'Repeated letters need precise accounting.', body: ['Guess evaluation runs in two passes. Exact-position matches are resolved first and consumed from the remaining solution counts. The second pass marks an unmatched letter as present only when an unused copy remains.', 'That prevents repeated letters from receiving more positive feedback than the solution can support.'], media: { ...placeholder('frame', 'Duplicate-letter evaluation placeholder', 'portrait'), caption: 'Temporary media placeholder — feedback states.' } },
-      { id: 'word-shift-search-space', type: 'media', eyebrow: 'The search space', heading: 'Make uncertainty visible.', intro: 'After each guess, every possible solution is evaluated against the same input. A candidate survives only when it reproduces the exact feedback pattern for every submitted guess—a duplicate-aware constraint expressed as information design.', media: { ...placeholder('signal', 'Deduction map placeholder', 'cinematic'), caption: 'Temporary media placeholder — deduction-map capture needed.' }, width: 'wide' },
+      { id: 'word-shift-feedback', type: 'split', eyebrow: 'Feedback logic', heading: 'Repeated letters need precise accounting.', body: ['Guess evaluation runs in two passes. Exact-position matches are resolved first and consumed from the remaining solution counts. The second pass marks an unmatched letter as present only when an unused copy remains.', 'That prevents repeated letters from receiving more positive feedback than the solution can support.'], media: { ...placeholder('frame', 'Duplicate-letter feedback diagram', 'portrait'), caption: 'Duplicate-aware feedback states.' } },
+      { id: 'word-shift-search-space', type: 'media', eyebrow: 'The search space', heading: 'Make uncertainty visible.', intro: 'After each guess, every possible solution is evaluated against the same input. A candidate survives only when it reproduces the exact feedback pattern for every submitted guess—a duplicate-aware constraint expressed as information design.', media: { ...placeholder('signal', 'Search-space reduction study', 'cinematic'), caption: 'Candidate space narrows after each valid guess.' }, width: 'wide' },
       { id: 'word-shift-state', type: 'details', eyebrow: 'Game state', heading: 'Pure decisions beneath the interface.', intro: 'The rules are kept separate from React so each transition remains deterministic and testable.', items: [{ label: 'State', detail: 'Solution, submitted guesses, current input, status, attempt limit, puzzle identity, and candidate-reduction history.' }, { label: 'Validation', detail: 'Incomplete and unknown words are rejected without consuming an attempt or mutating the current state.' }, { label: 'Transitions', detail: 'Typing, deletion, submission, win, loss, replay, and puzzle selection return explicit state changes.' }] },
-      { id: 'word-shift-input', type: 'split', eyebrow: 'Input and keyboard', heading: 'One interaction model, two ways to play.', body: ['Physical keyboard input and a semantic on-screen QWERTY keyboard share the same game actions. Letter knowledge is merged using a strict priority: correct, then present, then absent, then unused.', 'Once a key reaches a stronger known state it never downgrades.'], media: { ...placeholder('aperture', 'WORD//SHIFT keyboard placeholder', 'landscape'), caption: 'Temporary media placeholder — desktop keyboard capture needed.' }, mediaPosition: 'left' },
+      { id: 'word-shift-input', type: 'split', eyebrow: 'Input and keyboard', heading: 'One interaction model, two ways to play.', body: ['Physical keyboard input and a semantic on-screen QWERTY keyboard share the same game actions. Letter knowledge is merged using a strict priority: correct, then present, then absent, then unused.', 'Once a key reaches a stronger known state it never downgrades.'], media: { ...placeholder('aperture', 'WORD//SHIFT keyboard interaction study', 'landscape'), caption: 'Physical and on-screen input share one action model.' }, mediaPosition: 'left' },
       { id: 'word-shift-archive', type: 'text', eyebrow: 'Archive', heading: 'Replay without a daily lockout.', body: ['Twelve deterministic puzzles live in local data and remain immediately available through the archive. Solved status lasts only for the current session, keeping the feature lightweight while letting portfolio visitors play without waiting for another day.'] },
       { id: 'word-shift-accessibility', type: 'details', eyebrow: 'Accessibility', heading: 'Feedback that works beyond color.', items: [{ label: 'Controls', detail: 'Semantic buttons, complete physical-keyboard gameplay, logical focus behavior, and visible focus states.' }, { label: 'Status', detail: 'An aria-live region announces validation, remaining attempts, wins, and losses.' }, { label: 'Cells and keys', detail: 'Submitted tiles and keyboard controls expose descriptive state labels, while visible symbols reinforce correctness without relying on color alone.' }, { label: 'Motion and width', detail: 'Reduced-motion rules remove stagger, flip, and shake effects; the board and keyboard contract without horizontal page overflow.' }] },
       { id: 'word-shift-testing', type: 'text', eyebrow: 'Testing', heading: 'The edge cases are part of the product.', body: ['Twenty-nine passing Vitest tests cover evaluation states, duplicate letters, dictionary validation, attempt consumption, win and loss locks, keyboard-state upgrades, exact-feedback candidate filtering, archive selection, reset behavior, and immutable transitions.', 'The standalone application also passes lint and production build checks with no reported dependency vulnerabilities.'] },
@@ -142,7 +143,7 @@ export const projects: Project[] = [
     seo: { title: 'WORD//SHIFT — Abhishek Kachchhi', description: 'WORD//SHIFT is a five-letter deduction system that turns every guess into feedback and a visible measure of the remaining search space.' },
   },
   {
-    index: '03', slug: 'material-language', title: 'Material Language', summary: 'An interface study in light, depth, and restrained motion.', year: '2026', status: 'selected', category: 'Interface system', role: 'Design and development', tags: ['React', 'TypeScript', 'Interaction'], featured: true,
+    index: '03', slug: 'material-language', title: 'Material Language', summary: 'An interface study in light, depth, and restrained motion.', year: '2026', status: 'selected', category: 'Interface system', role: 'Design and development', tags: ['React', 'TypeScript', 'Interaction'],
     thumbnail: placeholder('aperture', 'Abstract aperture study'),
     heroMedia: placeholder('aperture', 'Large abstract aperture study', 'cinematic'),
     sections: [
@@ -155,7 +156,7 @@ export const projects: Project[] = [
     seo: { description: 'A placeholder case study for the Material Language interface study.' },
   },
   {
-    index: '04', slug: 'signal-noise', title: 'Signal / Noise', summary: 'A visual system that turns dense information into a calm, navigable field.', year: '2026', status: 'signal', category: 'Data experience', role: 'Interface design and prototyping', tags: ['React', 'Data', 'Motion'], featured: true,
+    index: '04', slug: 'signal-noise', title: 'Signal / Noise', summary: 'A visual system that turns dense information into a calm, navigable field.', year: '2026', status: 'signal', category: 'Data experience', role: 'Interface design and prototyping', tags: ['React', 'Data', 'Motion'],
     thumbnail: placeholder('signal', 'Abstract signal field study'),
     heroMedia: placeholder('signal', 'Large abstract signal field study', 'cinematic'),
     sections: [
@@ -166,7 +167,7 @@ export const projects: Project[] = [
     seo: { description: 'A placeholder case study for the Signal / Noise data experience.' },
   },
   {
-    index: '05', slug: 'quiet-machine', title: 'Quiet Machine', summary: 'A tactile software prototype built around focus, rhythm, and deliberate response.', year: '2025', category: 'Product prototype', role: 'Product design and development', tags: ['TypeScript', 'Prototype', 'Interface'], featured: true,
+    index: '05', slug: 'quiet-machine', title: 'Quiet Machine', summary: 'A tactile software prototype built around focus, rhythm, and deliberate response.', year: '2025', category: 'Product prototype', role: 'Product design and development', tags: ['TypeScript', 'Prototype', 'Interface'],
     thumbnail: placeholder('frame', 'Abstract interface frame study'),
     heroMedia: placeholder('frame', 'Large abstract interface frame study', 'cinematic'),
     sections: [
@@ -182,11 +183,13 @@ const duplicateSlugs = projects.map((project) => project.slug).filter((slug, ind
 if (duplicateSlugs.length) throw new Error(`Duplicate project slug${duplicateSlugs.length > 1 ? 's' : ''}: ${duplicateSlugs.join(', ')}`)
 
 export const getProjectHref = (project: Pick<Project, 'slug'>) => `/projects/${project.slug}`
-export const getProjectBySlug = (slug: string) => projects.find((project) => project.slug === slug)
-export const getFeaturedProjects = () => projects.filter((project) => project.featured)
+export const getPublishedProjects = () => projects.filter((project) => project.published)
+export const getProjectBySlug = (slug: string) => getPublishedProjects().find((project) => project.slug === slug)
+export const getFeaturedProjects = () => getPublishedProjects().filter((project) => project.featured)
 export const getProjectPreviewMedia = (project: Project) => project.thumbnail ?? project.heroMedia ?? placeholder('frame', `${project.title} media placeholder`)
 
 export function getAdjacentProjects(project: Project) {
-  const index = projects.findIndex((candidate) => candidate.slug === project.slug)
-  return { previous: index > 0 ? projects[index - 1] : undefined, next: index >= 0 && index < projects.length - 1 ? projects[index + 1] : undefined }
+  const publishedProjects = getPublishedProjects()
+  const index = publishedProjects.findIndex((candidate) => candidate.slug === project.slug)
+  return { previous: index > 0 ? publishedProjects[index - 1] : undefined, next: index >= 0 && index < publishedProjects.length - 1 ? publishedProjects[index + 1] : undefined }
 }

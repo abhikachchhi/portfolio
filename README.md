@@ -1,6 +1,6 @@
 # Abhishek Kachchhi — Portfolio
 
-The portfolio shell is available at `/`, with the approved design-system reference retained at `/system`.
+The portfolio is available at `/`, with the approved design-system reference retained at `/system`.
 
 ## Run locally
 
@@ -13,11 +13,7 @@ Use `npm run build` for a production build and `npm run lint` for linting.
 
 ## Intro playback
 
-The cinematic intro plays once on every fresh application load. Reload the browser to replay it; internal portfolio navigation does not restart it. The existing replay URL remains harmless for bookmarked development links:
-
-```text
-http://localhost:5173/?intro=1
-```
+The cinematic intro plays on a fresh homepage load. Reload the homepage to replay it; loading another route directly or navigating internally does not start it.
 
 Reduced-motion preferences bypass the cinematic sequence.
 
@@ -36,3 +32,19 @@ Dune Rise is the active display font and is loaded locally from the user-supplie
 - `src/styles/global.css` — responsive and accessible global defaults
 - `public/fonts/practa/` — documented slot for licensed Practa webfonts
 - `public/fonts/dune-rise/` — local Dune Rise files and SIL OFL license
+
+## Public routes
+
+- `/` — home
+- `/work` — current experience
+- `/projects` — selected projects
+- `/projects/loop-tac` and `/projects/word-shift` — canonical project-detail URLs
+- `/work/loop-tac` and `/work/word-shift` — compatible project-detail URLs
+- `/playground` — both playable experiments
+- `/playground/loop-tac` and `/playground/word-shift` — individual games
+- `/about` — personal approach and contact
+- `/system` — design-system reference
+
+## Deployment
+
+`npm run build` produces the deployable `dist/` directory. Because routing is handled client-side, the production host must rewrite unknown application paths to `index.html`; static files under `/fonts` and `/favicon.svg` should remain exempt from that fallback.

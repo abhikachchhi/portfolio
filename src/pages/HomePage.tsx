@@ -15,7 +15,7 @@ export function HomePage() {
         <div className="home-hero__eyebrow"><Chip className="hero-glass-reactive" variant="inset-h" data-hero-glass>Available for select work</Chip><span>Winnipeg, MB, Canada</span></div>
         <div className="home-hero__copy">
           <div className="home-hero__title-stage"><h1 id="home-title"><span>Abhishek</span><span>Kachchhi</span></h1></div>
-          <div className="home-hero__intro-stage"><div className="home-hero__intro"><p>Creative developer shaping tactile interfaces and interactive systems.</p><span>Design-led development with a focus on motion, material, and emerging web experiences.</span></div></div>
+          <div className="home-hero__intro-stage"><div className="home-hero__intro"><p>Developer focused on interactive web experiences and thoughtful systems.</p><span>Clear architecture, restrained motion, and careful detail from logic to interface.</span></div></div>
         </div>
         <div className="home-hero__actions"><Link className="site-button site-button--primary" to="/projects">Explore projects <span aria-hidden="true">↗</span></Link><Link className="site-button site-button--secondary hero-glass-reactive" data-hero-glass to="/about">About me</Link></div>
         <span className="home-hero__marker" aria-hidden="true">Scroll / 01</span>
@@ -29,7 +29,7 @@ export function HomePage() {
 
       <section className="about-preview page-frame" aria-labelledby="about-preview-title">
         <span>02 / About</span>
-        <div><h2 id="about-preview-title">Between logic<br />and atmosphere.</h2><p>I work where interface engineering meets visual experimentation—building digital experiences that feel clear, responsive, and distinctly human.</p><Link to="/about">More about my approach <span aria-hidden="true">→</span></Link></div>
+        <div><h2 id="about-preview-title">Between logic<br />and atmosphere.</h2><p>I build interactive web experiences around clear systems, thoughtful motion, and careful detail.</p><Link to="/about">More about my approach <span aria-hidden="true">→</span></Link></div>
       </section>
     </>
   )
