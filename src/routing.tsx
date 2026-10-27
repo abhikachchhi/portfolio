@@ -1,5 +1,6 @@
 /* eslint-disable react-refresh/only-export-components -- Router context, hook, and link intentionally share this small dependency-free module. */
 import { createContext, forwardRef, useContext, type AnchorHTMLAttributes, type MouseEvent, type ReactNode } from 'react'
+import { getBrowserPath } from './pathUtils'
 
 type RouterValue = {
   path: string
@@ -30,5 +31,5 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(function Link({ to,
     navigate(to)
   }
 
-  return <a ref={ref} href={to} onClick={handleClick} {...props}>{children}</a>
+  return <a ref={ref} href={getBrowserPath(to)} onClick={handleClick} {...props}>{children}</a>
 })

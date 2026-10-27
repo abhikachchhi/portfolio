@@ -11,7 +11,7 @@ import { PlaygroundPage } from './pages/PlaygroundPage'
 import { SystemPage } from './pages/SystemPage'
 import { WorkPage } from './pages/WorkPage'
 import { getProjectBySlug } from './data/projects'
-import { normalizePath } from './pathUtils'
+import { getAppPath, getBrowserPath, normalizePath } from './pathUtils'
 import { RouterProvider } from './routing'
 import './styles/site.css'
 
@@ -44,14 +44,14 @@ function getProjectSlug(path: string) {
 }
 
 function App() {
-  const [path, setPath] = useState(() => normalizePath(window.location.pathname))
-  const [introActive, setIntroActive] = useState(() => window.location.pathname === '/' && shouldPlayIntro())
+  const [path, setPath] = useState(() => getAppPath(window.location.pathname))
+  const [introActive, setIntroActive] = useState(() => getAppPath(window.location.pathname) === '/' && shouldPlayIntro())
   const projectSlug = getProjectSlug(path)
   const currentProject = projectSlug ? getProjectBySlug(projectSlug) : undefined
 
   useEffect(() => {
     const handlePopState = () => {
-      const nextPath = normalizePath(window.location.pathname)
+      const nextPath = getAppPath(window.location.pathname)
       setIntroActive(false)
       setPath(nextPath)
     }
@@ -77,12 +77,14 @@ function App() {
     setMeta('property', 'og:title', title)
     setMeta('property', 'og:description', description)
     setMeta('property', 'og:type', 'website')
-    setMeta('property', 'og:image', new URL(currentProject?.seo?.image ?? '/images/abhishek-kachchhi.png', window.location.origin).href)
+    const socialImage = currentProject?.seo?.image ?? '/images/abhishek-kachchhi.png'
+    const socialImageUrl = /^https?:\/\//.test(socialImage) ? socialImage : getBrowserPath(socialImage)
+    setMeta('property', 'og:image', new URL(socialImageUrl, window.location.origin).href)
     setMeta('property', 'og:image:alt', currentProject ? `${currentProject.title} by Abhishek Kachchhi` : 'Abhishek Kachchhi')
     setMeta('name', 'twitter:card', 'summary')
     setMeta('name', 'twitter:title', title)
     setMeta('name', 'twitter:description', description)
-    setMeta('name', 'twitter:image', new URL(currentProject?.seo?.image ?? '/images/abhishek-kachchhi.png', window.location.origin).href)
+    setMeta('name', 'twitter:image', new URL(socialImageUrl, window.location.origin).href)
     window.scrollTo({ top: 0, behavior: 'instant' })
   }, [currentProject, path])
 
@@ -100,7 +102,7 @@ function App() {
       return
     }
     setIntroActive(false)
-    window.history.pushState({}, '', nextPath)
+    window.history.pushState({}, '', getBrowserPath(nextPath))
     setPath(nextPath)
   }
 
