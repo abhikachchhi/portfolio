@@ -21,6 +21,11 @@ export function ProjectPreview({ project, layout, headingLevel = 3 }: ProjectPre
   const scrollFrameRef = useRef<number | null>(null)
   const [revealed, setRevealed] = useState(false)
   const Heading = headingLevel === 2 ? 'h2' : 'h3'
+  const titleClass = project.title.length > 14
+    ? 'project-preview__title project-preview__title--long'
+    : project.title.length > 10
+      ? 'project-preview__title project-preview__title--compact'
+      : 'project-preview__title'
 
   useEffect(() => {
     const preview = previewRef.current
@@ -120,11 +125,15 @@ export function ProjectPreview({ project, layout, headingLevel = 3 }: ProjectPre
         </div>
 
         <div className="project-preview__body">
-          <div className="project-preview__meta"><span>{project.category}</span><span>{project.year}</span></div>
-          <Heading className={`project-preview__title${project.title.length > 10 ? ' project-preview__title--compact' : ''}`}>{project.title}</Heading>
+          <div className="project-preview__meta"><span>{project.category}{project.status === 'in-progress' ? ' · In progress' : ''}</span><span>{project.year}</span></div>
+          <Heading className={titleClass}>{project.title}</Heading>
           <p>{project.summary}</p>
           <div className="project-preview__footer">
-            {project.tags?.length ? <div className="chip-row" aria-label="Technologies">{project.tags.map((tag) => <Chip variant="inset-d" key={tag}>{tag}</Chip>)}</div> : <span />}
+            {project.tags?.length
+              ? <div className="chip-row" aria-label="Technologies">{project.tags.map((tag) => <Chip variant="inset-d" key={tag}>{tag}</Chip>)}</div>
+              : project.status === 'in-progress'
+                ? <div className="chip-row" aria-label="Project status"><Chip variant="inset-d">In development</Chip></div>
+                : <span />}
             <span className="project-preview__action">View project <span aria-hidden="true">↗</span></span>
           </div>
         </div>

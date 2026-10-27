@@ -22,7 +22,7 @@ export function HomePage() {
 
       <section className="site-section home-projects page-frame" aria-labelledby="selected-projects-title">
         <header className="site-section__heading"><div><span>01</span><span>Selected projects</span></div><h2 id="selected-projects-title">Projects And<br />Experiments</h2></header>
-        <div className="project-showcase">{featuredProjects.slice(0, 3).map((project, index) => <ProjectPreview project={project} layout={index === 0 ? 'lead' : index === 1 ? 'reverse' : 'offset'} key={project.slug} />)}</div>
+        <div className="project-showcase">{featuredProjects.slice(0, 3).map((project, index) => <ProjectPreview project={project} layout={index % 2 === 0 ? 'lead' : 'reverse'} key={project.slug} />)}</div>
         <div className="section-link"><Link to="/projects">View all projects <span aria-hidden="true">→</span></Link></div>
       </section>
 

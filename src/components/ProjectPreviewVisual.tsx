@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react'
 import './ProjectPreview.css'
 
 type ProjectPreviewVisualProps = {
@@ -69,8 +70,41 @@ function WordShiftPreview() {
   )
 }
 
+function ExerciseTrackerPreview() {
+  const activityBars = [44, 70, 52, 86, 62, 76, 38]
+
+  return (
+    <div className="project-game-preview project-game-preview--tracker" aria-hidden="true">
+      <div className="project-game-preview__ambient"><span /><span /></div>
+      <div className="project-game-preview__panel tracker-preview">
+        <header className="project-game-preview__header">
+          <span className="project-game-preview__state"><i /> In development</span>
+          <span className="project-game-preview__moves">Project <strong>03</strong></span>
+        </header>
+        <div className="tracker-preview__layout">
+          <section className="tracker-preview__summary">
+            <span>Weekly activity</span>
+            <strong>Build in progress</strong>
+            <div className="tracker-preview__chart">
+              {activityBars.map((height, index) => <i style={{ '--tracker-bar': `${height}%` } as CSSProperties} key={index} />)}
+            </div>
+            <div className="tracker-preview__days"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span></div>
+          </section>
+          <aside className="tracker-preview__aside">
+            <span>Current phase</span>
+            <strong>Foundation</strong>
+            <div className="tracker-preview__progress"><i /></div>
+            <p>Stable product decisions will be documented here.</p>
+          </aside>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 export function ProjectPreviewVisual({ slug, title }: ProjectPreviewVisualProps) {
   if (slug === 'loop-tac') return <LoopTacPreview />
   if (slug === 'word-shift') return <WordShiftPreview />
+  if (slug === 'exercise-tracker') return <ExerciseTrackerPreview />
   return <div className="project-game-preview project-game-preview--fallback" role="img" aria-label={`${title} interface preview`} />
 }

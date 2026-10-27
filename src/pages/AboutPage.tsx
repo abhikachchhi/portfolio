@@ -66,10 +66,11 @@ export function AboutPage() {
           <section className="about-block" aria-labelledby="about-building-title">
             <h2 id="about-building-title">What I’m building</h2>
             <div className="about-block__content">
-              <p>Alongside the research ethics platform, I build smaller interactive systems that explore rule design, readable state, and precise feedback.</p>
+              <p>Alongside the research ethics platform, I build smaller interactive systems that explore rule design, readable state, precise feedback, and practical product development.</p>
               <div className="about-project-links">
                 <Link to="/projects/loop-tac"><span>01</span><strong>LOOP/TAC</strong><span>Strategy through a changing rule system</span></Link>
                 <Link to="/projects/word-shift"><span>02</span><strong>WORD//SHIFT</strong><span>Word deduction with visible uncertainty</span></Link>
+                <Link to="/projects/exercise-tracker"><span>03</span><strong>EXERCISE TRACKER</strong><span>Application in active development</span></Link>
               </div>
               <Link className="about-block__link" to="/projects">View selected projects <span aria-hidden="true">→</span></Link>
             </div>

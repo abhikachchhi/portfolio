@@ -28,7 +28,7 @@ export type ProjectInterfaceVisual = 'overview' | 'feedback' | 'search' | 'input
 
 export type ProjectInterfaceMedia = ProjectMediaBase & {
   kind: 'interface'
-  project: 'loop-tac' | 'word-shift'
+  project: 'loop-tac' | 'word-shift' | 'exercise-tracker'
   visual: ProjectInterfaceVisual
   label: string
 }
@@ -156,7 +156,18 @@ export const projects: Project[] = [
     seo: { title: 'WORD//SHIFT — Abhishek Kachchhi', description: 'WORD//SHIFT is a five-letter deduction system that turns every guess into feedback and a visible measure of the remaining search space.' },
   },
   {
-    index: '03', slug: 'material-language', title: 'Material Language', summary: 'An interface study in light, depth, and restrained motion.', year: '2026', status: 'selected', category: 'Interface system', role: 'Design and development', tags: ['React', 'TypeScript', 'Interaction'],
+    index: '03', slug: 'exercise-tracker', title: 'EXERCISE TRACKER', summary: 'An exercise tracking application currently in development. The product and its case study will evolve together as the work progresses.', year: '2026', status: 'in-progress', category: 'Fitness product', featured: true, published: true,
+    thumbnail: interfaceMedia('exercise-tracker', 'overview', 'Exercise Tracker work-in-progress interface study'),
+    heroMedia: { ...interfaceMedia('exercise-tracker', 'overview', 'Exercise Tracker work-in-progress interface study', 'cinematic'), caption: 'Concept preview — the interface is still in development.' },
+    sections: [
+      { id: 'exercise-tracker-status', type: 'text', eyebrow: 'Current status', heading: 'A working project, documented as it develops.', body: ['Exercise Tracker is still in active development. This page is intentionally concise while the product direction, interface, and technical decisions are being worked through.', 'The case study will grow from verified decisions and working functionality rather than presenting unfinished ideas as final outcomes.'] },
+      { id: 'exercise-tracker-documentation', type: 'details', eyebrow: 'Case-study plan', heading: 'The story will follow the working product.', intro: 'As the application develops, this page is prepared to document the parts of the project that become stable and demonstrable.', items: [{ label: 'Product scope', detail: 'The confirmed problem, intended use, and feature boundaries.' }, { label: 'System design', detail: 'The data model, application structure, and important technical decisions.' }, { label: 'Interface', detail: 'Responsive screens, interaction states, accessibility, and the reasoning behind them.' }, { label: 'Progress', detail: 'Working milestones, testing, and lessons from implementation.' }] },
+      { id: 'exercise-tracker-note', type: 'callout', eyebrow: 'In progress', text: 'This case study will be expanded as the application reaches stable, verifiable milestones.' },
+    ],
+    seo: { title: 'Exercise Tracker — In Progress — Abhishek Kachchhi', description: 'An exercise tracking application currently in development by Abhishek Kachchhi.' },
+  },
+  {
+    index: '04', slug: 'material-language', title: 'Material Language', summary: 'An interface study in light, depth, and restrained motion.', year: '2026', status: 'selected', category: 'Interface system', role: 'Design and development', tags: ['React', 'TypeScript', 'Interaction'],
     thumbnail: placeholder('aperture', 'Abstract aperture study'),
     heroMedia: placeholder('aperture', 'Large abstract aperture study', 'cinematic'),
     sections: [
@@ -169,7 +180,7 @@ export const projects: Project[] = [
     seo: { description: 'A placeholder case study for the Material Language interface study.' },
   },
   {
-    index: '04', slug: 'signal-noise', title: 'Signal / Noise', summary: 'A visual system that turns dense information into a calm, navigable field.', year: '2026', status: 'signal', category: 'Data experience', role: 'Interface design and prototyping', tags: ['React', 'Data', 'Motion'],
+    index: '05', slug: 'signal-noise', title: 'Signal / Noise', summary: 'A visual system that turns dense information into a calm, navigable field.', year: '2026', status: 'signal', category: 'Data experience', role: 'Interface design and prototyping', tags: ['React', 'Data', 'Motion'],
     thumbnail: placeholder('signal', 'Abstract signal field study'),
     heroMedia: placeholder('signal', 'Large abstract signal field study', 'cinematic'),
     sections: [
@@ -180,7 +191,7 @@ export const projects: Project[] = [
     seo: { description: 'A placeholder case study for the Signal / Noise data experience.' },
   },
   {
-    index: '05', slug: 'quiet-machine', title: 'Quiet Machine', summary: 'A tactile software prototype built around focus, rhythm, and deliberate response.', year: '2025', category: 'Product prototype', role: 'Product design and development', tags: ['TypeScript', 'Prototype', 'Interface'],
+    index: '06', slug: 'quiet-machine', title: 'Quiet Machine', summary: 'A tactile software prototype built around focus, rhythm, and deliberate response.', year: '2025', category: 'Product prototype', role: 'Product design and development', tags: ['TypeScript', 'Prototype', 'Interface'],
     thumbnail: placeholder('frame', 'Abstract interface frame study'),
     heroMedia: placeholder('frame', 'Large abstract interface frame study', 'cinematic'),
     sections: [

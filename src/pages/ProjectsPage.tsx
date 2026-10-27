@@ -11,7 +11,7 @@ export function ProjectsPage() {
         <h1>Selected<br />projects.</h1>
         <p>Interactive systems, expressive interfaces, and digital objects shaped through design and code.</p>
       </header>
-      <section className="project-showcase" aria-label="Project previews">{projects.map((project, index) => <ProjectPreview project={project} layout={index % 3 === 0 ? 'lead' : index % 3 === 1 ? 'reverse' : 'offset'} headingLevel={2} key={project.slug} />)}</section>
+      <section className="project-showcase" aria-label="Project previews">{projects.map((project, index) => <ProjectPreview project={project} layout={index % 2 === 0 ? 'lead' : 'reverse'} headingLevel={2} key={project.slug} />)}</section>
     </div>
   )
 }

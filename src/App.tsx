@@ -29,7 +29,7 @@ const pageTitles: Record<string, string> = {
 const pageDescriptions: Record<string, string> = {
   '/': 'Technical leadership, dependable web systems, and interactive projects by Abhishek Kachchhi.',
   '/work': 'Abhishek Kachchhi’s current Technical Lead work on a research ethics application and review platform at the University of Winnipeg.',
-  '/projects': 'Selected interactive projects by Abhishek Kachchhi, including LOOP/TAC and WORD//SHIFT.',
+  '/projects': 'Selected interactive projects by Abhishek Kachchhi, including LOOP/TAC, WORD//SHIFT, and an exercise tracking application in development.',
   '/about': 'About Abhishek Kachchhi, a Technical Lead and developer focused on clear architecture, dependable web systems, and thoughtful interfaces.',
   '/playground': 'Playable interface and game experiments by Abhishek Kachchhi.',
   '/playground/loop-tac': 'Play LOOP/TAC, a compact strategy game where move order continuously reshapes the board.',
