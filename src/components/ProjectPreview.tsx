@@ -4,7 +4,6 @@ import { getProjectHref, getProjectPreviewMedia } from '../data/projects'
 import { Link } from '../routing'
 import { Chip } from './Chip'
 import { ProjectMedia } from './project/ProjectMedia'
-import { ProjectPreviewVisual } from './ProjectPreviewVisual'
 import './ProjectPreview.css'
 
 type ProjectPreviewProps = {
@@ -116,9 +115,7 @@ export function ProjectPreview({ project, layout, headingLevel = 3 }: ProjectPre
     <article ref={previewRef} className={`project-preview project-preview--${layout}${revealed ? ' is-revealed' : ''}`}>
       <Link className="project-preview__link" to={getProjectHref(project)} aria-label={`View ${project.title} case study`} onPointerEnter={onPointerEnter} onPointerMove={onPointerMove} onPointerLeave={onPointerLeave}>
         <div ref={mediaRef} className="project-preview__media">
-          {project.slug === 'loop-tac' || project.slug === 'word-shift'
-            ? <ProjectPreviewVisual slug={project.slug} title={project.title} />
-            : <ProjectMedia media={getProjectPreviewMedia(project)} preview />}
+          <ProjectMedia media={getProjectPreviewMedia(project)} preview />
           <span className="project-preview__number" aria-hidden="true">{project.index}</span>
         </div>
 

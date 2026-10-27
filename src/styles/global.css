@@ -8,11 +8,12 @@ html {
 
 body {
   --lens-backdrop:
-    linear-gradient(138deg, transparent 0 38%, rgba(139, 124, 255, 0.035) 38% 51%, transparent 51%),
-    linear-gradient(42deg, transparent 0 66%, rgba(100, 224, 255, 0.025) 66% 78%, transparent 78%),
+    linear-gradient(138deg, transparent 0 34%, rgba(139, 124, 255, 0.072) 34% 51%, transparent 51%),
+    linear-gradient(42deg, transparent 0 67%, rgba(139, 124, 255, 0.045) 67% 79%, transparent 79%),
+    repeating-radial-gradient(circle at 52% 34%, transparent 0 21rem, rgba(245, 246, 248, 0.026) 21rem calc(21rem + 1px), transparent calc(21rem + 1px) 33rem),
     repeating-linear-gradient(90deg, rgba(245, 246, 248, 0.012) 0 1px, transparent 1px 36px),
-    radial-gradient(circle at 82% 8%, rgba(139, 124, 255, 0.075), transparent 28rem),
-    radial-gradient(circle at 6% 48%, rgba(100, 224, 255, 0.035), transparent 24rem);
+    radial-gradient(circle at 82% 8%, rgba(139, 124, 255, 0.13), transparent 30rem),
+    radial-gradient(circle at 8% 54%, rgba(139, 124, 255, 0.065), transparent 28rem);
   min-width: 320px;
   min-height: 100vh;
   margin: 0;

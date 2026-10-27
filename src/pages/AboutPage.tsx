@@ -2,14 +2,14 @@ import { Chip } from '../components/Chip'
 import { Link } from '../routing'
 
 const focusAreas = [
-  'Interactive interfaces',
-  'Game and system logic',
-  'Frontend architecture',
+  'Technical leadership',
+  'Workflow architecture',
+  'Data and state design',
+  'Frontend systems',
   'Accessibility',
   'Responsive design',
-  'Motion and micro-interaction',
   'Testing',
-  'Information design',
+  'Interaction design',
 ]
 
 const technologies = ['React', 'TypeScript', 'Vite', 'CSS', 'Vitest', 'Git']
@@ -18,30 +18,39 @@ export function AboutPage() {
   return (
     <div className="inner-page about-page page-frame">
       <header className="page-intro page-intro--about">
-        <div className="page-intro__meta"><span>03 / About</span><span>Winnipeg · Interactive web</span></div>
-        <h1>About<br />Abhishek Kachchhi.</h1>
-        <p>I design and build interactive web experiences with a focus on clear systems, restrained motion, and thoughtful detail.</p>
+        <div className="page-intro__meta"><span>03 / About</span><span>Winnipeg · Technical Lead</span></div>
+        <h1>About me.</h1>
+        <p>I’m a Technical Lead and developer building dependable web systems with clear architecture, thoughtful interfaces, and maintainable foundations.</p>
       </header>
 
-      <section className="about-columns" aria-label="About Abhishek Kachchhi">
+      <section className="about-columns" aria-label="About me">
         <aside className="about-columns__aside">
           <span>Position</span>
-          <p>Developer.<br />Systems thinker.<br />Design-sensitive builder.</p>
+          <p>Technical Lead.<br />Systems thinker.<br />Design-sensitive engineer.</p>
         </aside>
 
         <div className="about-columns__body">
+          <section className="about-block" aria-labelledby="about-role-title">
+            <h2 id="about-role-title">Current role</h2>
+            <div className="about-block__content">
+              <p>I currently lead the technical work on a University of Winnipeg project building a web-based research ethics application and review platform.</p>
+              <p>The system supports new submissions, amendments, and renewals for researchers, alongside assignment, review, and adjudication workflows for research office staff and Research Ethics Board reviewers. Its compliance context includes Canada’s TCPS 2 (2022) and PIPEDA requirements.</p>
+              <Link className="about-block__link" to="/work">View my current work <span aria-hidden="true">→</span></Link>
+            </div>
+          </section>
+
           <section className="about-block" aria-labelledby="about-approach-title">
             <h2 id="about-approach-title">Approach</h2>
             <div className="about-block__content">
-              <p>I like turning complex interactions into clear, understandable systems. Logic stays separate from presentation, motion earns its place, and responsive and accessible behavior are considered from the start.</p>
-              <p>I prefer intentional dependencies and reusable foundations over one-off fixes, without letting the system get in the way of a distinct final experience.</p>
+              <p>I turn complex requirements and multi-role workflows into clear, understandable systems. Logic stays separate from presentation, responsibilities remain explicit, and responsive and accessible behavior are considered from the start.</p>
+              <p>I prefer intentional dependencies, clean data structures, and reusable foundations over one-off fixes—without letting architecture get in the way of a practical result.</p>
             </div>
           </section>
 
           <section className="about-block" aria-labelledby="about-focus-title">
             <h2 id="about-focus-title">Current focus</h2>
             <div className="about-block__content">
-              <p>My current work sits between frontend engineering, interaction design, and small rule-driven software systems.</p>
+              <p>My current work sits between technical leadership, workflow architecture, frontend engineering, and the interaction details that make complex software easier to use.</p>
               <div className="chip-row" aria-label="Current areas of focus">{focusAreas.map((area) => <Chip variant="inset-d" key={area}>{area}</Chip>)}</div>
             </div>
           </section>
@@ -57,7 +66,7 @@ export function AboutPage() {
           <section className="about-block" aria-labelledby="about-building-title">
             <h2 id="about-building-title">What I’m building</h2>
             <div className="about-block__content">
-              <p>Recent projects explore how simple rules can create depth, and how information can make an interaction easier to understand.</p>
+              <p>Alongside the research ethics platform, I build smaller interactive systems that explore rule design, readable state, and precise feedback.</p>
               <div className="about-project-links">
                 <Link to="/projects/loop-tac"><span>01</span><strong>LOOP/TAC</strong><span>Strategy through a changing rule system</span></Link>
                 <Link to="/projects/word-shift"><span>02</span><strong>WORD//SHIFT</strong><span>Word deduction with visible uncertainty</span></Link>

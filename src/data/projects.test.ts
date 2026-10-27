@@ -20,4 +20,11 @@ describe('public project visibility', () => {
     expect(getAdjacentProjects(loopTac)).toEqual({ previous: undefined, next: wordShift })
     expect(getAdjacentProjects(wordShift)).toEqual({ previous: loopTac, next: undefined })
   })
+
+  it('uses real interface media for every published project preview and hero', () => {
+    for (const project of getPublishedProjects()) {
+      expect(project.thumbnail?.kind).toBe('interface')
+      expect(project.heroMedia?.kind).toBe('interface')
+    }
+  })
 })

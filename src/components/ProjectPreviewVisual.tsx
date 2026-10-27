@@ -1,3 +1,5 @@
+import './ProjectPreview.css'
+
 type ProjectPreviewVisualProps = {
   slug: string
   title: string

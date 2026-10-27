@@ -24,7 +24,7 @@ export function ProjectHero({ project }: { project: Project }) {
         <div><dt>Type</dt><dd>{project.category}</dd></div>
         {project.tags?.length ? <div className="project-meta__stack"><dt>Stack</dt><dd><span className="chip-row">{project.tags.map((tag) => <Chip variant="inset-d" key={tag}>{tag}</Chip>)}</span></dd></div> : null}
       </dl>
-      {project.heroMedia ? <ProjectMedia className="project-hero__media" media={project.heroMedia} priority /> : null}
+      {project.heroMedia ? <ProjectMedia className={`project-hero__media${project.heroMedia.kind === 'interface' ? ' project-hero__interface-media' : ''}`} media={project.heroMedia} priority /> : null}
     </header>
   )
 }

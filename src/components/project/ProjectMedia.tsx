@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
 import type { ProjectMedia as ProjectMediaData } from '../../data/projects'
+import { ProjectPreviewVisual } from '../ProjectPreviewVisual'
+import { ProjectMediaVisual } from './ProjectMediaVisual'
 import './project.css'
 
 type ProjectMediaProps = {
@@ -51,6 +53,10 @@ export function ProjectMedia({ media, className = '', priority = false, preview 
     content = <img src={media.src} alt={media.alt} width={media.width} height={media.height} loading={priority ? 'eager' : 'lazy'} fetchPriority={priority ? 'high' : 'auto'} decoding="async" style={style} />
   } else if (media.kind === 'video') {
     content = <ProjectVideo media={media} preview={preview} priority={priority} />
+  } else if (media.kind === 'interface') {
+    content = media.visual === 'overview'
+      ? <div className="project-media__interface" role="img" aria-label={media.label}><ProjectPreviewVisual slug={media.project} title={media.label} /></div>
+      : <ProjectMediaVisual media={media} />
   } else {
     content = (
       <div className={`project-media__placeholder project-media__placeholder--${media.treatment}`} role="img" aria-label={media.label}>

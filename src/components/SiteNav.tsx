@@ -59,7 +59,7 @@ export function SiteNav() {
     <header className="site-header">
       <NavGlassSurface className="site-nav" aria-label="Primary navigation">
         <Link className="site-nav__brand" to="/" aria-label="Abhishek Kachchhi, home">
-          <span className="site-nav__monogram"><img src="/images/abhishek-kachchhi.png" alt="" width="42" height="42" /></span><span className="site-nav__name">Abhishek Kachchhi</span>
+          <span className="site-nav__monogram"><img src="/images/abhishek-kachchhi-nav.png" alt="" width="42" height="42" /></span><span className="site-nav__name">Abhishek Kachchhi</span>
         </Link>
         <div className="site-nav__links">
           {links.map((link) => <Link className={isActive(link.to) ? 'is-active' : ''} aria-current={isActive(link.to) ? 'page' : undefined} to={link.to} key={link.to}>{link.label}</Link>)}

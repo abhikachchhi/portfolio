@@ -1,14 +1,5 @@
 # WORD//SHIFT media
 
-The case study currently uses the shared project placeholder system because no real captures are available yet.
+The public case study uses typed, code-rendered interface media from `src/components/project/ProjectMediaVisual.tsx` and the shared overview visual. These static compositions are derived from the real game UI and remain responsive without loading screenshot assets.
 
-Replace those placeholder records in `src/data/projects.ts` as media becomes available. Suggested files:
-
-- `hero.webp`
-- `board-desktop.webp`
-- `deduction-map.webp`
-- `archive.webp`
-- `mobile.webp`
-- optional `demo.mp4`
-
-Use real captures from the standalone application; do not fabricate interface screenshots.
+If final raster captures are added later, store them in this directory and replace the corresponding `interface` records in `src/data/projects.ts` with typed `image` or `video` media records.

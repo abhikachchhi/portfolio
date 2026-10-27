@@ -16,7 +16,7 @@ import { RouterProvider } from './routing'
 import './styles/site.css'
 
 const pageTitles: Record<string, string> = {
-  '/': 'Abhishek Kachchhi — Creative Developer',
+  '/': 'Abhishek Kachchhi — Technical Lead & Developer',
   '/work': 'Experience — Abhishek Kachchhi',
   '/projects': 'Projects — Abhishek Kachchhi',
   '/about': 'About — Abhishek Kachchhi',
@@ -27,10 +27,10 @@ const pageTitles: Record<string, string> = {
 }
 
 const pageDescriptions: Record<string, string> = {
-  '/': 'Interactive web experiences, thoughtful systems, and selected projects by Abhishek Kachchhi.',
-  '/work': 'Current frontend development and interactive systems practice by Abhishek Kachchhi.',
+  '/': 'Technical leadership, dependable web systems, and interactive projects by Abhishek Kachchhi.',
+  '/work': 'Abhishek Kachchhi’s current Technical Lead work on a research ethics application and review platform at the University of Winnipeg.',
   '/projects': 'Selected interactive projects by Abhishek Kachchhi, including LOOP/TAC and WORD//SHIFT.',
-  '/about': 'About Abhishek Kachchhi, a developer focused on interactive web experiences, clear systems, and thoughtful detail.',
+  '/about': 'About Abhishek Kachchhi, a Technical Lead and developer focused on clear architecture, dependable web systems, and thoughtful interfaces.',
   '/playground': 'Playable interface and game experiments by Abhishek Kachchhi.',
   '/playground/loop-tac': 'Play LOOP/TAC, a compact strategy game where move order continuously reshapes the board.',
   '/playground/word-shift': 'Play WORD//SHIFT, a five-letter deduction game with a visible remaining search space.',
@@ -77,7 +77,12 @@ function App() {
     setMeta('property', 'og:title', title)
     setMeta('property', 'og:description', description)
     setMeta('property', 'og:type', 'website')
+    setMeta('property', 'og:image', new URL(currentProject?.seo?.image ?? '/images/abhishek-kachchhi.png', window.location.origin).href)
+    setMeta('property', 'og:image:alt', currentProject ? `${currentProject.title} by Abhishek Kachchhi` : 'Abhishek Kachchhi')
     setMeta('name', 'twitter:card', 'summary')
+    setMeta('name', 'twitter:title', title)
+    setMeta('name', 'twitter:description', description)
+    setMeta('name', 'twitter:image', new URL(currentProject?.seo?.image ?? '/images/abhishek-kachchhi.png', window.location.origin).href)
     window.scrollTo({ top: 0, behavior: 'instant' })
   }, [currentProject, path])
 
